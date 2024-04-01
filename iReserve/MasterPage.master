@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Welcome to P & EL iReserve System</title>
+    <link rel="SHORTCUT ICON" href="img/PEL.ico"/>
+    <link href="css/Style.css" media="screen" rel="Stylesheet" />
+    <script src="js/jquery-1.12.0.js"></script>
+    <%--<script src="js/jquery-ui-1.10.0.custom.js"></script>--%>
+    <script language="javascript" type="text/javascript">
+        if (top != self)
+            top.location.href = self.location.href;
+    </script>
+</head>
+<body class="mpbody" oncontextmenu="javascript:return false;">
+    <form id="form1" runat="server">
+    <div class="mpwrapper">
+        <div class="mpheader">
+		    <div></div>
+        </div>
+        <div class="mptopnavi">
+        </div>
+        <div class="mpbodybox">
+            <div id="loginmpcontent">
+                <asp:contentplaceholder id="contentBody" runat="server">
+                </asp:contentplaceholder>
+            </div>
+        </div> 
+        <div class="mpfooter">
+		    <p>Copyright 2015 Networld Capital Ventures Incorporated. All Rights Reserved.  
+		        <a href="http://www.pjlhuillier.com">P.J. Lhuillier Group of Companies.</a>
+		    </p>
+	    </div> 
+	</div>
+    </form>
+</body>
+</html>

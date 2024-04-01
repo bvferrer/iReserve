@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode title="steMn">
+    <siteMapNode url="" title="User Profile" description="">
+      <siteMapNode url="~\ChangePassword.aspx" title="Change Password" description="" />
+    </siteMapNode>
+    <siteMapNode url="" title="File Maintenance" description="" resourceKey="Conference Room Administrator">
+      <siteMapNode url="~\MaintenanceLocation.aspx" title="Location" description="" />
+      <siteMapNode url="~\MaintenanceConferenceRoom.aspx" title="Conference Room" description="" resourceKey="Conference Room Administrator"/>
+    </siteMapNode>
+    <siteMapNode url="" title="File Maintenance" description="" resourceKey="Convention Center Administrator">
+      <siteMapNode url="~\MaintenanceTrainingRoom.aspx" title="Training Room" description="" resourceKey="Convention Center Administrator"/>
+      <siteMapNode url="~\MaintenanceAccomodationRoom.aspx" title="Accomodation Room" description="" resourceKey="Convention Center Administrator"/>
+    </siteMapNode>
+    <siteMapNode url="" title="Monitor Display" description="" resourceKey="Conference Room Administrator">
+      <siteMapNode url="~\MonitorDisplayConferenceRoomMain.aspx" title="Conference Room" description="" resourceKey="Conference Room Administrator"/>
+    </siteMapNode>
+    <siteMapNode url="" title="Reports" description="" resourceKey="Conference Room Administrator">
+      <siteMapNode url="~\ReportConferenceRoomMain.aspx" title="Conference Room" description="" resourceKey="Conference Room Administrator"/>
+    </siteMapNode>
+    <siteMapNode url="" title="Reports" description="" resourceKey="Convention Center Administrator">
+      <siteMapNode url="~\ReportTrainingRoomMain.aspx" title="Training Room" description="" resourceKey="Convention Center Administrator"/>
+      <siteMapNode url="~\ReportAccomodationRoomMain.aspx" title="Accomodation Room" description="" resourceKey="Convention Center Administrator"/>
+      <siteMapNode url="~\ReportSOAMain.aspx" title="Statement of Account" description="" resourceKey="Convention Center Administrator"/>
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

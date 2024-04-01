@@ -1,0 +1,1341 @@
+﻿body
+{
+    
+}
+
+/*=============Legal Banner=============*/
+#LegalBannerPanel
+{
+    height: 179px;
+    width: 588px;
+    margin: 200px auto;
+    text-align: center;
+}
+
+#LegalBannerPanel p
+{
+    font-size: 11pt;
+    font-family: Tahoma;
+}
+
+#LegalBannerPanel p:first-child
+{
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+#LegalBannerPanel p + p + p
+{
+    color: #ff0033;
+}
+
+/*=============Master Page=============*/
+/*.modalBackground
+{
+    background-color: Gray;
+    filter: alpha(opacity=60);
+    opacity: 0.60;
+    z-index: 10000;
+}*/
+
+.mpbody
+{
+    background-color: #013B63;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #757575;
+    background-repeat: repeat-x;
+}
+
+.mpwrapper
+{
+    width: 950px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.mpheader
+{
+    float: left;
+    width: 950px;
+    height: 162px;
+    background-color: #ffffff;
+}
+
+.mpheader div
+{
+    display: inline;
+    float: left;
+    width: 938px;
+    height: 151px;
+    margin: 6px;
+    margin-left: 6px;
+    background-image: url('../img/Banner.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+.mptopnavi
+{
+    display: inline;
+    float: left;
+    width: 950px;
+    height: 34px;
+    background-image: url('../img/bg_topnavi2.jpg');
+    background-repeat: no-repeat;
+}
+
+.mpbodybox
+{
+    float: left;
+    width: 950px;
+    background-image: url('../img/bg_bodybox2.jpg');
+}
+
+.mpfooter
+{
+    display: inline;
+    float: left;
+    width: 950px;
+    height: 41px;
+    background-image: url('../img/bg_footer2.jpg');
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+.mpfooter p
+{
+    margin: 6px;
+    padding: 0px;
+    line-height: 28px;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #aaaaaa;
+}
+
+.mpfooter p a
+{
+    font-size: 10px;
+    color: #aaaaaa;
+    text-decoration: underline;
+}
+
+/*=============Login Master Page=============*/
+#loginmpcontent
+{
+    display: inline;
+    float: left;
+    width: 98.55%;
+    margin-left: 7px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*=============Site Master Page=============*/
+#topnavi table
+{
+    width: 100%;
+    height: 28px;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    margin-top: -5px;
+}
+
+#topnavi table td
+{
+    height: 30px;
+    width: 10%;
+}
+
+#topnavi table td + td
+{
+    width: 80%;
+    text-align: center;
+}
+
+#topnavi table td span
+{
+    color: Gray;
+}
+
+#topnavi ul
+{
+    display: inline;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 0px;
+}
+
+#topnavi ul li
+{
+    float: left;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-position: center left;
+    line-height: 28px;
+}
+
+#topnavi ul li a
+{
+    line-height: 28px;
+    color: #8d8d8d;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    text-decoration: none;
+    padding-left: 28px;
+    padding-right: 26px;
+}
+
+#topnavi ul li a:hover
+{
+    line-height: 28px;
+    color: Maroon;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    text-decoration: underline;
+    padding-left: 28px;
+    padding-right: 26px;
+}
+
+#homeli
+{
+    background-image: url('../img/home.gif');
+    margin-left: 15px;
+}
+
+#logoutli
+{
+    background-image: url('../img/logout.gif');
+}
+
+#menunavi
+{
+    display: inline;
+    float: left;
+    width: 22.43%;
+    margin-left: 7px;
+    margin-top: 2px;
+    padding-bottom: 5px;
+}
+
+#menu
+{
+    border: #aaaaaa solid 1px;
+    color: #101010;
+    padding: 5px 5px 15px 4px;
+    margin: 0 0 8px 0;
+    background-color: #ffffff;
+}
+
+#menu h2
+{
+    display: block;
+    height: 22px;
+    background: url('../img/left_head_1px.gif') 0 0 repeat-x;
+    padding: 4px 0 0 14px;
+    margin: 0 0 1px 0;
+}
+
+#menu h2 span
+{
+    padding: 0 0 0 16px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #101010;
+    background-position: 0px 3px;
+    background-attachment: scroll;
+    background-image: url('../img/arrow.gif');
+    background-repeat: no-repeat;
+}
+
+#menu .ctl00_mnuMain_2
+{
+    margin-left: 7px;
+}
+
+#mpcontent
+{
+    display: inline;
+    float: left;
+    width: 73.96%;
+    margin-left: 18px;
+    margin-top: 2px;
+    padding-bottom: 5px;
+}
+
+/* gridview hide column */
+.hiddencol
+{
+    display: none;
+}
+
+/* mouseover row style */
+.row-over
+{
+    background-color: #b2d2ff;
+    cursor: default;
+}
+
+/* select row style */
+.row-select
+{
+    background-color: #426fd9;
+    color: #fff;
+}
+.Text1
+{
+    font: tahoma;
+    font-size: 11px;
+    color: Gray;
+}
+.title
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #395080;
+    text-decoration: none;
+}
+
+/*=============Login Page=============*/
+#loginwrapper
+{
+    width: 439px;
+    height: 186px;
+    margin-top: 70px;
+    margin-left: 255px;
+    margin-bottom: 75px;
+    border: #aaaaaa solid 1px;
+    color: #101010;
+}
+
+#loginwrapper h2
+{
+    display: block;
+    height: 22px;
+    background: url(../img/left_head_1px.gif) 0 0 repeat-x;
+    padding: 4px 0 0 14px;
+    margin: 0 0 0px 0;
+}
+
+#loginwrapper h2 span
+{
+    padding: 0 0 0 3px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #101010;
+    color: Navy;
+}
+
+#loginkeyboard
+{
+    display: inline;
+    float: left;
+    margin: 3px 0px 0px 3px;
+    background-image: url('../img/keyboard.jpg');
+    width: 142px;
+    border-right: thin dotted #C6C6C6;
+    height: 153px;
+}
+
+#logincontent
+{
+    display: inline;
+    float: left;
+    margin: 3px 3px 0px 3px;
+    padding-top: 20px;
+    padding-left: 10px;
+    width: 274px;
+    height: 139px;
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+#logincontent table
+{
+    margin-top: 10px;
+    width: 268px;
+    height: 102px;
+}
+
+#logincontent table tr
+{
+    height: 30px;
+}
+
+#logincontent table tr + tr + tr
+{
+    height: 34px;
+}
+
+/*=============Page Content=============*/
+.mainDiv
+{
+    width: 98.8%;
+    border: #aaaaaa solid 1px;
+    color: #101010;
+    padding: 5px 5px 27px 4px;
+    font-family: Tahoma;
+    font-size: 12px;
+}
+
+.header
+{
+    display: block;
+    height: 22px;
+    background: url('../img/Site_lefthead.gif') 0 0 repeat-x;
+    padding: 4px 0 0 14px;
+    margin: 0 0 1px 0;
+}
+
+.header > span
+{
+    padding: 0 0 0 16px;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;
+    color: #101010;
+    background-position: 0px 3px;
+    background-attachment: scroll;
+    background-image: url('../img/arrow.gif');
+    background-repeat: no-repeat;
+}
+
+.contentDiv
+{
+    padding-right: 5px; 
+	padding-left: 10px; 
+	padding-bottom: 5px; 
+	padding-top: 15px;
+    height: auto;
+}
+
+.TextBoxStyleCode
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    width: 50px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.TextBoxStyle
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.DropDownStyle
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.ButtonStyle
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    width: 90px;
+}
+
+.LinkButtonStyle
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    width: 50px;
+    color: #9f8838;
+}
+
+.FileUploadStyle
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.NumericTextBoxStyle
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    border-style: solid;
+    border-width: 1px;
+    text-align: left;
+    width: 107px;
+}
+
+.LabelStyle
+{
+    font-family: Tahoma;
+    font-size: 12px;
+}
+
+.search_wrapper
+{
+    position: relative;
+    width: 660px;
+    margin: 0;
+    display: block;
+    padding-bottom: 15px;
+}
+
+.search_wrapper table
+{
+    width: 100%;
+}
+
+.fields_wrapper
+{
+    position: relative;
+    width: 660px;
+    margin: 0;
+    display: block;
+    padding-bottom: 15px;
+}
+
+.fields_wrapper > table
+{
+    width: 100%;
+}
+
+.fields_wrapper > table > tbody > tr > td
+{
+    width: 150px;
+}
+
+.gridview_wrapper
+{
+    position: relative;
+    width: 675px;
+    margin: 0;
+    display: block;
+}
+
+.gridview_wrapper table
+{
+    width: 100%;
+    border-collapse: collapse;
+    color: #333;
+    color: #333333;
+    font-size: 11px;
+    font-family: Verdana;
+}
+
+.gridview_wrapper table th, .gridview_wrapper table td
+{
+    padding: 4px;
+}
+
+.gridview_wrapper table th, .tablefooter
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background: #507CD1;
+    text-align: center;
+}
+
+.gridviewselect
+{
+    width: 50px;
+    text-align: center;
+}
+
+.tablefooter
+{
+    text-align: center;
+    font-weight: normal;
+}
+
+.button_wrapper
+{
+    position: relative;
+    width: 660px;
+    margin: 0;
+    display: block;
+    padding-top: 15px;
+}
+
+.button_wrapper table
+{
+    width: 100%;
+    text-align: left;
+}
+
+/*=============Schedule/Calendar Page=============*/
+.modalBackground
+{
+    background-color: Gray;
+    filter: alpha(opacity=80);
+    opacity: 0.8;
+    z-index: 10000;
+}
+
+.calContainer
+{
+    padding: 5px;
+    border: 1px solid #aaa;
+    font-family: Tahoma;
+}
+
+.innerNav
+{
+    display:block;
+    margin-bottom: 5px;
+    padding: 10px;
+    background: #f3f3f3 url('../img/left_head_1px.gif') repeat-x;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.innerNav a
+{
+    text-decoration: none;
+    color: #8d8d8d;
+    padding: 3px;
+    padding-left: 22px;
+    background: url('../img/home.gif') no-repeat; 
+}
+
+.innerNav a:hover
+{
+    color: Maroon;
+    text-decoration:underline;
+}
+
+.room
+{
+    margin: 20px 0px 5px;
+}
+
+.room > span, .calendarDatePicker > span
+{
+    color: #013f6a;
+    margin: 0px 10px;
+}
+
+.calendarDatePicker
+{
+    margin:10px 0px 10px;
+    display:block;
+}
+
+.calendarDatePicker #datepicker
+{
+    margin-left: 94px;
+    width: 205px;
+}
+
+.calendarDatePicker input[type=text]
+{
+    background: #fff url('../img/calendar.gif') no-repeat 2px center;
+    border: 1px solid #013f6a;
+    padding-left: 22px;
+    height: 22px;
+    width: 200px;
+    border-radius: 4px;
+}
+
+.calendarDatePicker .loadDate
+{
+    border-radius: 4px;
+    background: #013f6a;
+    padding: 4px 7px 4px 7px;
+    color: #fff;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.calendarDatePicker .loadDate:hover
+{
+    background: #578eb2;
+}
+
+.calendarDatePicker .next
+{
+    float:right;
+}
+
+.ajax__calendar .ajax__calendar_container
+{
+    width: 212px;
+}
+
+.ajax__calendar_body
+{
+    
+}
+
+.ajax__calendar_container TABLE
+{
+    
+}
+
+.ajax__calendar_days
+{
+    
+}
+
+.calendarNavigation
+{
+    padding: 3px 0px;
+}
+
+.calendarNavigation .next
+{
+    float: right;
+}
+
+.calendarNavigation .prev, .calendarNavigation .next
+{
+    border-radius: 4px;
+    margin-right: 5px;
+    padding: 5px;
+    color: #013f6a;
+    float:left;
+    font-size: 13px;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    background: #e1ebf2;
+    width: 50px;
+}
+
+#calendarHeaderTable
+{
+    
+}
+
+#calendarHeaderTable.calendarHeaderStick
+{
+    position: fixed;
+    top: 0;
+    padding-top: 0px;
+}
+
+.calendarHeader
+{
+    margin-top: 10px;
+    font-size: 14px;
+    color: #0167b2;
+}
+
+div.calendar
+{
+    /*margin-left: 83px;*/
+}
+
+div.calendar table
+{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed;
+}
+
+div.calendar tr + tr + tr
+{
+    background: #fff;
+}
+
+.calYear
+{
+    font-size: 20px;
+    color: #ffe000;
+    background: #013B63;
+}
+
+.calYear td:second-child
+{
+    border-left: 1px solid #0167b2;
+    border-right: 1px solid #ead583;
+}
+
+.calYear td + td + td
+{
+    border-right: 1px solid #0167b2;
+    border-left: 1px solid #ead583;
+}
+
+.calMonth
+{
+    font-size: 16px;
+    color: #fff;
+    background: #0167b2;
+}
+
+.calMonth td
+{
+    border-left: 1px solid #93c4f1;
+    border-right: 1px solid #93c4f1;
+    padding: 10px 5px 5px 5px;
+}
+
+.calDay
+{
+    color: #000;
+    width: 4%;
+    height: 50px;
+    margin: 0 auto; 
+    border-left: 1px solid #0167b2;
+    border-right: 1px solid #0167b2;
+    background: #93c4f1;
+}
+
+.time
+{
+    font-size: 20px;
+    color: #ffe000;
+    background: #013B63;
+    width: 20%;
+}
+
+.scheduleGridviewCSS
+{
+    text-align: center;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#scheduleGridview
+{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.scheduleGridviewCSS >tbody > tr > td:first-child
+{
+    background: #93c4f1;
+    color: #000;
+    width: 20%;
+}
+
+.scheduleCell
+{
+    width: 4%;
+    height: 30px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+    color: #0167b2;
+}
+
+.noSchedule
+{
+    background-color: #fff;
+    width: 4%;
+    height: 30px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+    color: #0167b2;
+}
+
+.withSchedule
+{
+    background-color: #ff8a98;
+    width: 4%;
+    height: 30px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+}
+
+.pastdate
+{
+    background:#ccc;
+    width: 4%;
+    height: 30px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+    color: #0167b2;
+}
+
+.timedIn
+{
+    background-color: #ACD48B;
+    width: 4%;
+    height: 30px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+}
+
+/*=============Request Form=============*/
+.formwrapper
+{
+    border: Solid 3px black; 
+    width: 420px; 
+    max-height: 600px;
+    overflow: auto;
+    overflow-x: hidden;
+    font-family: Tahoma; 
+    font-size: 14px;
+    text-align: center; 
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.formheaderdiv
+{
+    background-color: #013B63; 
+    color: White; 
+    padding: 5px 10px 5px 10px;
+}
+
+.formheaderdiv > div
+{
+    padding: 3px 0px;
+    word-wrap: break-word;
+}
+
+.formheaderdiv > div > *
+{
+    padding: 0px 2px;
+}
+
+.formfieldsdiv
+{
+    padding: 5px 10px 5px 10px;
+}
+
+.formfieldsdiv > div
+{
+    padding: 5px 0;
+    word-break: break-all;
+}
+
+.attendeegrid td
+{
+    margin: 5px 0;
+    word-break: break-all;
+}
+
+.historyformwrapper
+{
+    border: Solid 3px black; 
+    width: 520px; 
+    max-height: 600px;
+    overflow: auto;
+    overflow-x: hidden;
+    font-family: Tahoma; 
+    font-size: 14px;
+    text-align: center; 
+}
+
+.historygrid td
+{
+    margin: 5px 0;
+    padding: 5px;
+}
+
+/*=============Default Page=============*/
+.section_wrapper
+{
+    width: 660px;
+    padding: 10px 0;
+}
+
+.section_wrapper > *
+{
+    padding: 5px 0;
+}
+
+.section_wrapper .gridview_wrapper
+{
+    padding-bottom: 15px;
+}
+
+.default_search_wrapper
+{
+    position: relative;
+    width: 660px;
+    margin: 0;
+    display: block;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.default_title_wrapper
+{
+    position: relative;
+    width: 660px;
+    margin: 0;
+    display: block;
+    padding: 5px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.default_dropdown
+{
+    width: 200px;
+}
+
+.searchButton
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    width: 50px;
+}
+
+.default_button_wrapper
+{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.newRequestButton
+{
+    font-family: Tahoma;
+    font-size: 12px;
+    width: 170px;
+}
+
+.adminstats
+{
+    text-align: center;
+}
+
+.admindatalist
+{
+    margin: 5px 15px 5px 0;
+    font-size: 10pt;
+}
+
+.admindatalist .count
+{
+    font-weight: bold;
+}
+
+/*=============Confirm Request Details Page=============*/
+.details_wrapper
+{
+    position: relative;
+    width: 660px;
+    margin: 0;
+    display: block;
+    padding-bottom: 15px;
+}
+
+.details_wrapper > table
+{
+    width: 640px;
+}
+
+.details_wrapper > table > tbody > tr > td
+{
+    padding: 5px;
+}
+
+.details_wrapper > table > tbody > tr > td:first-child
+{
+    width: 160px;
+    text-align: right;
+}
+
+.detailsattendee
+{
+    width: 450px;
+}
+
+.detailsattendee th
+{
+    text-align: center;
+}
+
+.detailsattendee td
+{
+    padding: 2px 5px;
+}
+
+.detailsattendee > tbody > tr > td:first-child
+{
+    width: 20px;
+    text-align: center;
+}
+
+.detailsattachment
+{
+    width: 450px;
+}
+
+.detailsattachment th
+{
+    text-align: center;
+}
+
+.detailsattachment td
+{
+    padding: 2px 5px;
+}
+
+.detailsattachment > tbody > tr > td:first-child
+{
+    width: 55px;
+    text-align: center;
+}
+
+.detailsattachment > tbody > tr > td + td + td
+{
+    word-break: break-all;
+}
+
+/*=============Report Page=============*/
+.reportbody
+{
+    
+}
+
+.reportmain_wrapper
+{
+    width: 500px;
+    margin: 20px 0px 5px;
+}
+
+.reportmain_wrapper > div
+{
+    text-align: left;
+    vertical-align: middle;
+    padding: 5px 0;
+}
+
+.reportmain_wrapper > div > *
+{
+    margin: 0 3px;
+}
+
+.reportmain_wrapper > div #ctl00_contentBody_statusDropDownList
+{
+    margin-left: 25px;
+}
+
+.reportmain_wrapper > div #ctl00_contentBody_calendarTo
+{
+    margin-left: 18px;
+}
+
+.reportdropdown
+{
+    width: 120px;
+}
+
+.reportbutton
+{
+    width: 100px;
+}
+
+.reportbutton_wrapper
+{
+    margin-top: 5px;
+}
+
+.reportbutton_wrapper #ctl00_contentBody_generateReportButton
+{
+    margin-left: 84px;
+}
+
+.reportContainer
+{
+    font-family: Tahoma;
+    padding: 5px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+}
+
+.reportContainer span
+{
+    font-size: 10pt;
+}
+
+.reportContainer > div
+{
+    padding: 5px;
+}
+
+.reportgridview_wrapper table
+{
+    width: 100%;
+}
+
+.reporttotal_wrapper
+{
+    text-align: right;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/*=============Monitor Display Page=============*/
+.displaydropdown
+{
+    width: 180px;
+}
+
+.displayContainer
+{
+    font-family: Tahoma;
+    padding: 0 5px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+    height: 730px;
+}
+
+.displayContainer > div
+{
+    padding: 5px 0;
+}
+
+.displayheader
+{
+    font-size: 16pt;
+    font-weight: bold;
+    overflow: hidden;
+    width: 100%;
+}
+
+#displayTitleLabel
+{
+    padding-left: 15px;
+    float: left;
+}
+
+#displayDateLabel
+{
+    padding-right: 15px;
+    float: right;
+}
+
+.displaywrapper > div
+{
+    
+}
+
+.displayGridViewCSS
+{
+    text-align: center;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#displayGridView
+{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 15pt;
+    height: 690px;
+}
+
+#displayGridView th
+{
+    color: #ffe000;
+    background: #013B63;
+    height: 11%;
+}
+
+#displayGridView td
+{
+    margin: 0 auto;
+    border: 1px solid gray;
+    height: 10%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 10px;
+}
+
+#displayGridView td > div
+{
+    
+}
+
+.displayGridViewCSS th:first-child, .displayGridViewCSS tr td:first-child
+{
+    display: none;
+}
+
+.displayGridViewCSS th:first-child + th
+{
+    width: 200px;
+}
+
+.displayGridViewCSS tr td:first-child + td
+{
+    background-color: #93c4f1;
+}
+
+.displaycell
+{
+    color: #000;
+    background-color: #ff8a98;
+}
+
+.timedincell
+{
+    color: #000;
+    background-color: #ACD48B;
+}
+
+.vacantcell
+{
+    
+}
+
+.displaycontent
+{
+    margin: 5px 0;
+}
+
+/*=============Error Page=============*/
+.errorwrapper
+{
+    text-align: center;
+    padding: 10px;
+}
+
+/*=============Maintenance Tran Up/Down=============*/
+.tranupdownbutton
+{
+    height: 18px;
+    font-size: 8px;
+    width: 15px;
+}
+
+/*=============Up/Down=============*/
+.upDownButton
+{
+    height: 18px;
+    font-size: 8px;
+    width: 20px;
+}
+
+.daysLabel
+{
+    margin-right: 5px;
+}

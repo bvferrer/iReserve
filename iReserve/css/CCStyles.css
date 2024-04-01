@@ -1,0 +1,307 @@
+﻿/*=============Training Room File Maintenance=============*/
+.subgridview, .rategridview
+{
+    width: 450px;
+}
+
+.subgridview th, .rategridview th
+{
+    text-align: center;
+}
+
+.subgridview td, .rategridview td
+{
+    padding: 2px 5px;
+    text-align: center;
+}
+
+.subgridview > tbody > tr > th:first-child
+{
+    width: 20px;
+    text-align: center;
+}
+
+.rategridview > tbody > tr > th:first-child
+{
+    width: 80px;
+    text-align: center;
+}
+
+/*=============Convention Center Calendar=============*/
+.ccCalendarDatePicker
+{
+    margin:10px 0px 10px;
+    display:block;
+    padding: 5px 0px;
+    vertical-align: middle;
+}
+
+.ccCalendarDatePicker > span:first-child, .ccRoom > span
+{
+    color: #013f6a;
+    margin: 5px 5px;
+    font-size: 15px;
+}
+
+.ccCalendarDatePicker #datepicker
+{
+    width: 205px;
+    padding-top: 5px;
+}
+
+.ccCalendarDatePicker input[type=text]
+{
+    background: #fff url('../img/calendar.gif') no-repeat 2px center;
+    border: 1px solid #013f6a;
+    padding-left: 22px;
+    padding-right: 10px;
+    height: 22px;
+    width: 200px;
+    border-radius: 4px;
+}
+
+.ccCalendarDatePicker .loadDate
+{
+    border-radius: 4px;
+    background: #013f6a;
+    padding: 4px 7px 4px 7px;
+    color: #fff;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.ccCalendarDatePicker .loadDate:hover
+{
+    background: #578eb2;
+}
+
+.prev, .next
+{
+    border-radius: 4px;
+    padding: 5px;
+    color: #013f6a;
+    font-size: 13px;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    background: #e1ebf2;
+    width: 50px;
+}
+
+.ccRoom
+{
+    margin: 0px;
+    font-size: 15px;
+}
+
+.ccRoom > Span
+{
+    float: left
+}
+
+.buttonwrapper
+{
+    text-align: right;
+}
+
+#ccCalendarHeaderTable
+{
+    
+}
+
+#ccCalendarHeaderTable.calendarHeaderStick
+{
+    position: fixed;
+    top: 0;
+    padding-top: 0px;
+}
+
+.ccCalendarHeader
+{
+    margin-top: 10px;
+    font-size: 14px;
+    color: #0167b2;
+}
+
+.room
+{
+    font-size: 20px;
+    color: #ffe000;
+    background: #013B63;
+    width: 20%;
+}
+
+.ccScheduleGridviewCSS
+{
+    text-align: center;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#trainingRoomScheduleGridview
+{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.trainingRoomCell
+{
+    background: #93c4f1;
+    color: #000;
+    width: 15%;
+    border-right: 1px solid gray;
+}
+
+.partitionRoomCell
+{
+    background: #93c4f1;
+    color: #000;
+    width: 5%;
+}
+
+#accomodationRoomScheduleGridView
+{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.accomodationRoomCell
+{
+    background: #93c4f1;
+    color: #000;
+    width: 20%;
+}
+
+.blocked
+{
+    background:#aaa;
+    width: 4%;
+    height: 30px;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+    color: #0167b2;
+}
+
+/*=============Request Form=============*/
+.summaryformwrapper
+{
+    border: Solid 3px black; 
+    width: 820px; 
+    max-height: 600px;
+    overflow: auto;
+    overflow-x: hidden;
+    font-family: Tahoma; 
+    font-size: 14px;
+    text-align: center; 
+}
+
+.summarygrid
+{
+    width: 750px;
+}
+
+.summarygrid
+{
+    text-align: center;
+}
+
+.summarygrid
+{
+    padding: 2px 5px;
+}
+
+.summarydate
+{
+    width: 80px;
+}
+
+.summarycount, .summarytrrem
+{
+    width: 100px;
+}
+
+.summarytreq
+{
+    width: 110px;
+}
+
+.summarydays
+{
+    width: 50px;
+}
+
+.summarynights
+{
+    width: 60px;
+}
+
+.summarytrname
+{
+    width: 180px;
+}
+
+.summaryarname
+{
+    width: 150px;
+}
+
+.summaryarrem
+{
+    width: 230px;
+}
+
+/*=============SOA Details Page=============*/
+.soadetails_wrapper
+{
+    position: relative;
+    width: 660px;
+    margin: 0;
+    display: block;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.soadetails_wrapper hr
+{
+    width: 100%;
+}
+
+.soadetails_wrapper > table
+{
+    width: 640px;
+}
+
+.soadetails_wrapper > table > tbody > tr > td
+{
+    padding: 5px;
+}
+
+.soadetails_wrapper > table > tbody > tr > td:first-child, .soadetails_wrapper > table > tbody > tr > td + td + td
+{
+    text-align: right;
+}
+
+.soadetails_wrapper > table > tbody > tr > td + td, .soadetails_wrapper > table > tbody > tr > td + td + td + td
+{
+    text-align: left;
+}
+
+.addButton
+{
+    margin-top: 5px;
+}
+
+.trdetailsgrid, .trdetailsgrid td, .trdetailsgrid th
+{
+    border: 1px solid black;
+}

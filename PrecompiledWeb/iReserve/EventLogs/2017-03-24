@@ -1,0 +1,164 @@
+Event ID: 8861
+DateTime: 03-24-2017 02:18:23 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 8861
+DateTime: 03-24-2017 02:18:23 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at CalendarConventionCenter.trainingRoomScheduleGridview_RowDataBound(Object sender, GridViewRowEventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 160
+   at System.Web.UI.WebControls.GridView.OnRowDataBound(GridViewRowEventArgs e)
+   at System.Web.UI.WebControls.GridView.CreateRow(Int32 rowIndex, Int32 dataSourceIndex, DataControlRowType rowType, DataControlRowState rowState, Boolean dataBind, Object dataItem, DataControlField[] fields, TableRowCollection rows, PagedDataSource pagedDataSource)
+   at System.Web.UI.WebControls.GridView.CreateChildControls(IEnumerable dataSource, Boolean dataBinding)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.GridView.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at System.Web.UI.DataSourceView.Select(DataSourceSelectArguments arguments, DataSourceViewSelectCallback callback)
+   at System.Web.UI.WebControls.DataBoundControl.PerformSelect()
+   at System.Web.UI.WebControls.BaseDataBoundControl.DataBind()
+   at System.Web.UI.WebControls.GridView.DataBind()
+   at CalendarConventionCenter.BindCalendarGridView() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 112
+   at CalendarConventionCenter.LoadTrainingRoomControls() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 47
+   at CalendarConventionCenter.Page_Load(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 37
+   at System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   at System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 8233
+DateTime: 03-24-2017 02:16:25 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 8233
+DateTime: 03-24-2017 02:16:25 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at CalendarConventionCenter.trainingRoomScheduleGridview_RowDataBound(Object sender, GridViewRowEventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 160
+   at System.Web.UI.WebControls.GridView.OnRowDataBound(GridViewRowEventArgs e)
+   at System.Web.UI.WebControls.GridView.CreateRow(Int32 rowIndex, Int32 dataSourceIndex, DataControlRowType rowType, DataControlRowState rowState, Boolean dataBind, Object dataItem, DataControlField[] fields, TableRowCollection rows, PagedDataSource pagedDataSource)
+   at System.Web.UI.WebControls.GridView.CreateChildControls(IEnumerable dataSource, Boolean dataBinding)
+   at System.Web.UI.WebControls.CompositeDataBoundControl.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.GridView.PerformDataBinding(IEnumerable data)
+   at System.Web.UI.WebControls.DataBoundControl.OnDataSourceViewSelectCallback(IEnumerable data)
+   at System.Web.UI.DataSourceView.Select(DataSourceSelectArguments arguments, DataSourceViewSelectCallback callback)
+   at System.Web.UI.WebControls.DataBoundControl.PerformSelect()
+   at System.Web.UI.WebControls.BaseDataBoundControl.DataBind()
+   at System.Web.UI.WebControls.GridView.DataBind()
+   at CalendarConventionCenter.BindCalendarGridView() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 112
+   at CalendarConventionCenter.LoadTrainingRoomControls() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 47
+   at CalendarConventionCenter.Page_Load(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenter.aspx.cs:line 37
+   at System.Web.Util.CalliHelper.EventArgFunctionCaller(IntPtr fp, Object o, Object t, EventArgs e)
+   at System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 9281
+DateTime: 03-24-2017 12:36:50 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 9281
+DateTime: 03-24-2017 12:36:49 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.InvalidOperationException: A control with ID 'submitButton' could not be found for the trigger in UpdatePanel 'calendarUpdatePanel'.
+   at System.Web.UI.UpdatePanelControlTrigger.FindTargetControl(Boolean searchNamingContainers)
+   at System.Web.UI.PostBackTrigger.Initialize()
+   at System.Web.UI.UpdatePanelTriggerCollection.Initialize()
+   at System.Web.UI.UpdatePanel.Initialize()
+   at System.Web.UI.UpdatePanel.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 1778
+DateTime: 03-24-2017 12:28:32 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 1778
+DateTime: 03-24-2017 12:28:32 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.InvalidOperationException: A control with ID 'submitButton' could not be found for the trigger in UpdatePanel 'calendarUpdatePanel'.
+   at System.Web.UI.UpdatePanelControlTrigger.FindTargetControl(Boolean searchNamingContainers)
+   at System.Web.UI.PostBackTrigger.Initialize()
+   at System.Web.UI.UpdatePanelTriggerCollection.Initialize()
+   at System.Web.UI.UpdatePanel.Initialize()
+   at System.Web.UI.UpdatePanel.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+

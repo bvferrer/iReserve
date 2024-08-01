@@ -1,0 +1,226 @@
+Event ID: 1654
+DateTime: 05-03-2017 04:00:02 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 1654
+DateTime: 05-03-2017 04:00:02 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Web.HttpCompileException: d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\SOAApproverDetails.aspx(231): error CS0117: 'ASP.soaapproverdetails_aspx' does not contain a definition for 'cancelButton_Click'
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   at System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+
+Event ID: 5796
+DateTime: 05-03-2017 03:58:54 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 5796
+DateTime: 05-03-2017 03:58:54 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Web.HttpCompileException: d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\SOAApproverDetails.aspx(152): error CS0117: 'ASP.soaapproverdetails_aspx' does not contain a definition for 'otherChargesGridView_RowDeleting'
+   at System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   at System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+
+Event ID: 1518
+DateTime: 05-03-2017 03:57:14 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 1518
+DateTime: 05-03-2017 03:57:14 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Web.HttpException: The file '/iReserve/ApproverSOADetails.aspx' does not exist.
+   at System.Web.UI.Util.CheckVirtualFileExists(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   at System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+
+Event ID: 4526
+DateTime: 05-03-2017 11:29:55 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 4526
+DateTime: 05-03-2017 11:29:55 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Web.HttpCompileException: d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\SOAApproverHome.aspx(45): error CS0117: 'ASP.soaapproverhome_aspx' does not contain a definition for 'soaForApprovalGridView_SelectedIndexChanged'
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   at System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+
+Event ID: 3496
+DateTime: 05-03-2017 11:24:38 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 3496
+DateTime: 05-03-2017 11:24:38 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Web.HttpCompileException: d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\SOAApproverHome.aspx.cs(41): error CS0103: The name 'RefreshSOAForApprovalGridView' does not exist in the current context
+   at System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   at System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+
+Event ID: 9287
+DateTime: 05-03-2017 10:42:59 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 9287
+DateTime: 05-03-2017 10:42:59 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Web.HttpCompileException: d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CCAdminRequestDetails.aspx(201): error CS0117: 'ASP.ccadminrequestdetails_aspx' does not contain a definition for 'viewSOAButton_Click'
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   at System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+

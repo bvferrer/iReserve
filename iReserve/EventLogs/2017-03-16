@@ -1,0 +1,326 @@
+Event ID: 5385
+DateTime: 03-16-2017 07:00:07 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 5385
+DateTime: 03-16-2017 07:00:07 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MaintenanceTrainingRoomTran.saveButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 327
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 7853
+DateTime: 03-16-2017 06:45:06 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 7853
+DateTime: 03-16-2017 06:45:05 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MaintenanceTrainingRoomTran.saveButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 327
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 5737
+DateTime: 03-16-2017 06:43:45 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 5737
+DateTime: 03-16-2017 06:43:45 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at MaintenanceTrainingRoomTran.saveButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 327
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 5783
+DateTime: 03-16-2017 05:08:57 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 5783
+DateTime: 03-16-2017 05:08:57 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt32(String value)
+   at MaintenanceTrainingRoomTran.saveButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 318
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 2844
+DateTime: 03-16-2017 05:07:31 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 2844
+DateTime: 03-16-2017 05:07:31 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt32(String value)
+   at MaintenanceTrainingRoomTran.saveButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 317
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 4759
+DateTime: 03-16-2017 05:04:36 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 4759
+DateTime: 03-16-2017 05:04:36 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Web.HttpCompileException: d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs(197): error CS0103: The name 'i' does not exist in the current context
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   at System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   at System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   at System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+
+Event ID: 2549
+DateTime: 03-16-2017 05:03:57 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 2549
+DateTime: 03-16-2017 05:03:56 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Data.DuplicateNameException: A column named 'PartitionID' already belongs to this DataTable.
+   at System.Data.DataColumnCollection.RegisterColumnName(String name, DataColumn column, DataTable table)
+   at System.Data.DataColumnCollection.BaseAdd(DataColumn column)
+   at System.Data.DataColumnCollection.AddAt(Int32 index, DataColumn column)
+   at System.Data.DataColumnCollection.Add(DataColumn column)
+   at MaintenanceTrainingRoomTran.SetPartitionGridViewRows() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 169
+   at MaintenanceTrainingRoomTran.upButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 140
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 1559
+DateTime: 03-16-2017 04:48:23 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 1559
+DateTime: 03-16-2017 04:48:23 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt32(String value)
+   at MaintenanceTrainingRoomTran.saveButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 303
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+
+Event ID: 8654
+DateTime: 03-16-2017 04:39:27 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 8654
+DateTime: 03-16-2017 04:39:26 PM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Convert.ToInt32(String value)
+   at MaintenanceTrainingRoomTran.saveButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\MaintenanceTrainingRoomTran.aspx.cs:line 303
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+

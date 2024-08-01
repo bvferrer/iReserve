@@ -1,0 +1,89 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.Master.cs" Inherits="Site" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>iReserve</title>
+    <link rel="SHORTCUT ICON" href="img/PEL.ico" />
+    <link href="css/Style.css" media="screen" rel="Stylesheet" />
+    <link href="css/CCStyles.css" media="screen" rel="Stylesheet" />
+    <script src="js/jquery-1.12.0.js"></script>
+    <%--<script src="js/jquery-ui-1.10.0.custom.js"></script>--%>
+    <script language="javascript" type="text/javascript">
+        if (top != self)
+            top.location.href = self.location.href;
+    </script>
+</head>
+<body class="mpbody" oncontextmenu="javascript:return false;">
+    <form id="form1" runat="server">
+    <div class="mpwrapper">
+        <div class="mpheader">
+            <div>
+            </div>
+        </div>
+        <div id="topnavi" class="mptopnavi">
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li id="homeli">
+                                    <asp:LinkButton ID="lbHome" runat="server" Text="Home" PostBackUrl="~/Default.aspx"
+                                        onmouseover="javascript:window.status='Home';return true;" onmouseout="javascript:window.status='';return true;"></asp:LinkButton>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <span>Welcome</span>
+                            <asp:Label ID="fullNameLabel" runat="server" Text="Full Name" ForeColor="Maroon"></asp:Label>
+                        </td>
+                        <td>
+                            <ul>
+                                <li id="logoutli">
+                                    <asp:LinkButton ID="lbLogout" runat="server" Text="Logout" OnClick="lbLogout_Click"
+                                        onmouseover="javascript:window.status='Logout';return true;" onmouseout="javascript:window.status='';return true;"></asp:LinkButton>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="mpbodybox">
+            <div id="menunavi">
+                <div id="menu">
+                    <h2>
+                        <span>Main Menu </span>
+                    </h2>
+                    <br />
+                    <asp:SiteMapDataSource ID="smds" runat="server" ShowStartingNode="false" />
+                    <asp:Menu ID="mnuMain" runat="server" DynamicHorizontalOffset="2" Font-Names="Verdana"
+                        Font-Size="12px" ForeColor="Black" Width="189px" BorderColor="Silver"
+                        DataSourceID="smds" onmenuitemdatabound="mnuMain_MenuItemDataBound">
+                        <StaticHoverStyle BackColor="LightSlateGray" ForeColor="White" />
+                        <StaticSelectedStyle BackColor="LightSlateGray" ForeColor="White" />
+                        <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" BorderColor="Control"
+                            BorderStyle="Solid" BorderWidth="1px" Height="25px" ItemSpacing="1px" />
+                        <DynamicHoverStyle BackColor="LightSlateGray" ForeColor="White" />
+                        <DynamicSelectedStyle BackColor="LightSlateGray" ForeColor="White" />
+                        <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" BackColor="White"
+                            BorderColor="Control" BorderStyle="Solid" BorderWidth="1px" Height="25px" ItemSpacing="1px"
+                            Width="180px" />
+                    </asp:Menu>
+                </div>
+            </div>
+            <div id="mpcontent">
+                <asp:ContentPlaceHolder ID="contentBody" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div class="mpfooter">
+            <p>
+                Copyright 2015 Networld Capital Ventures Incorporated. All Rights Reserved. <a href="http://www.pjlhuillier.com">
+                    P.J. Lhuillier Group of Companies.</a>
+            </p>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

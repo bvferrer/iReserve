@@ -1,0 +1,241 @@
+Event ID: 4865
+DateTime: 06-05-2017 03:04:37 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 4865
+DateTime: 06-05-2017 03:04:37 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Data.SqlClient.SqlException: String or binary data would be truncated.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at TrainingRoom.RetrieveTRCalendarSchedule(String dateFrom) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\TrainingRoom.cs:line 224
+   at RetrieveTRCalendarScheduleRequest.Process() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Request\RetrieveTRCalendarScheduleRequest.cs:line 30
+   at Service.RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Service.cs:line 1208
+
+
+
+Event ID: 1922
+DateTime: 06-05-2017 03:03:48 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 1922
+DateTime: 06-05-2017 03:03:48 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Data.SqlClient.SqlException: String or binary data would be truncated.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at TrainingRoom.RetrieveTRCalendarSchedule(String dateFrom) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\TrainingRoom.cs:line 224
+   at RetrieveTRCalendarScheduleRequest.Process() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Request\RetrieveTRCalendarScheduleRequest.cs:line 30
+   at Service.RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Service.cs:line 1208
+
+
+
+Event ID: 4733
+DateTime: 06-05-2017 03:02:02 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 4733
+DateTime: 06-05-2017 03:02:02 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Data.SqlClient.SqlException: String or binary data would be truncated.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at TrainingRoom.RetrieveTRCalendarSchedule(String dateFrom) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\TrainingRoom.cs:line 224
+   at RetrieveTRCalendarScheduleRequest.Process() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Request\RetrieveTRCalendarScheduleRequest.cs:line 30
+   at Service.RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Service.cs:line 1208
+
+
+
+Event ID: 9574
+DateTime: 06-05-2017 03:01:36 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 9574
+DateTime: 06-05-2017 03:01:36 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Data.SqlClient.SqlException: A transport-level error has occurred when sending the request to the server. (provider: Shared Memory Provider, error: 0 - No process is on the other end of the pipe.)
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParserStateObject.WriteSni()
+   at System.Data.SqlClient.TdsParserStateObject.WritePacket(Byte flushMode)
+   at System.Data.SqlClient.TdsParserStateObject.ExecuteFlush()
+   at System.Data.SqlClient.TdsParser.TdsExecuteRPC(_SqlRPC[] rpcArray, Int32 timeout, Boolean inSchema, SqlNotificationRequest notificationRequest, TdsParserStateObject stateObj, Boolean isCommandProc)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at TrainingRoom.RetrieveTRCalendarSchedule(String dateFrom) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\TrainingRoom.cs:line 224
+   at RetrieveTRCalendarScheduleRequest.Process() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Request\RetrieveTRCalendarScheduleRequest.cs:line 30
+   at Service.RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Service.cs:line 1208
+
+
+
+Event ID: 3339
+DateTime: 06-05-2017 02:59:28 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 3339
+DateTime: 06-05-2017 02:59:28 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Data.SqlClient.SqlException: String or binary data would be truncated.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at TrainingRoom.RetrieveTRCalendarSchedule(String dateFrom) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\TrainingRoom.cs:line 224
+   at RetrieveTRCalendarScheduleRequest.Process() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Request\RetrieveTRCalendarScheduleRequest.cs:line 30
+   at Service.RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Service.cs:line 1208
+
+
+
+Event ID: 4548
+DateTime: 06-05-2017 02:57:20 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 4548
+DateTime: 06-05-2017 02:57:19 AM
+Event Type: Error
+Event Source: iReserveWS
+Details: 
+System.Data.SqlClient.SqlException: String or binary data would be truncated.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at TrainingRoom.RetrieveTRCalendarSchedule(String dateFrom) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\TrainingRoom.cs:line 224
+   at RetrieveTRCalendarScheduleRequest.Process() in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Request\RetrieveTRCalendarScheduleRequest.cs:line 30
+   at Service.RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserveWS\App_Code\Service.cs:line 1208
+
+
+

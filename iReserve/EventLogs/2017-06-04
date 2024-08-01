@@ -1,0 +1,37 @@
+Event ID: 2939
+DateTime: 06-04-2017 05:14:08 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.  Inaccessible logs: Security.
+   at System.Diagnostics.EventLog.FindSourceRegistration(String source, String machineName, Boolean readOnly)
+   at System.Diagnostics.EventLog.SourceExists(String source, String machineName)
+   at System.Diagnostics.EventLog.VerifyAndCreateSource(String sourceName, String currentMachineName)
+   at System.Diagnostics.EventLog.WriteEntry(String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID, Int16 category, Byte[] rawData)
+   at System.Diagnostics.EventLog.WriteEntry(String source, String message, EventLogEntryType type, Int32 eventID)
+   at RDFramework.Utility.EventInformation.Log()
+The Zone of the assembly that failed was:
+MyComputer
+
+
+
+Event ID: 2939
+DateTime: 06-04-2017 05:14:08 AM
+Event Type: Error
+Event Source: iReserve
+Details: 
+System.FormatException: String was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.Convert.ToDateTime(String value)
+   at CalendarConventionCenterAdmin.TRTran(Int32 tranCode) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenterAdmin.aspx.cs:line 439
+   at CalendarConventionCenterAdmin.unblockButton_Click(Object sender, EventArgs e) in d:\KAEsguerra\Projects\P & EL iReserve\iReserve Phase 2 - Android App and Convention Center Module\iReserve - Conv Center Module\iReserve\iReserve\CalendarConventionCenterAdmin.aspx.cs:line 520
+   at System.Web.UI.WebControls.Button.OnClick(EventArgs e)
+   at System.Web.UI.WebControls.Button.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.WebControls.Button.System.Web.UI.IPostBackEventHandler.RaisePostBackEvent(String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(IPostBackEventHandler sourceControl, String eventArgument)
+   at System.Web.UI.Page.RaisePostBackEvent(NameValueCollection postData)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+
+
+

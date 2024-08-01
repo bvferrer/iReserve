@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        .style2
+        {
+            height: 31px;
+        }
+    </style>
+</head>
+<body>
+    Dear [RequestorName],<br />
+    <br />
+    Please see statement of account for your reservation request specified below.
+    <br />
+    <br />
+    <table border="0" cellpadding="0" cellspacing="2" width="900" style="font-family: Arial;
+        border: 1px solid black;">
+        <tr>
+            <td align="center" style="padding-top: 10px;">
+                <strong>PJ LHUILLIER CONVENTION CENTER</strong>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="font-size: 14px;">
+                <strong>Owned and Operated by: Riche Gould Real Estate, Inc.</strong>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="font-size: 14px;">
+                <strong>TIN 240-332-041-000 VAT</strong>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding-top: 20px;">
+                <strong>STATEMENT OF ACCOUNT</strong>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style="padding-top: 10px;">
+                <hr style="width: 869px" />
+                <strong>Reservation Details</strong>
+                <hr style="width: 869px" />
+                <table align="center" border="0" cellpadding="2" cellspacing="0" width="850" style="font-family: Arial;
+                    border: 2px solid black; padding-left: 10px;">
+                    <tr>
+                        <td align="right" valign="middle" width="175">
+                            <b>Reference Number : </b>
+                        </td>
+                        <td align="left" valign="middle" width="250">
+                            [RefNumber]
+                        </td>
+                        <td align="right" valign="middle" width="175">
+                            <b>Event : </b>
+                        </td>
+                        <td align="left" valign="middle" width="250">
+                            [EventName]
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="middle">
+                            <b>To : </b>
+                        </td>
+                        <td align="left" valign="middle">
+                            [CostCenter]
+                        </td>
+                        <td align="right" valign="middle">
+                            <b>Start Date : </b>
+                        </td>
+                        <td align="left" valign="middle">
+                            [StartDate]
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="middle">
+                            <b>Contact Person : </b>
+                        </td>
+                        <td align="left" valign="middle">
+                            [RequestorName]
+                        </td>
+                        <td align="right" valign="middle">
+                            <b>End Date : </b>
+                        </td>
+                        <td align="left" valign="middle">
+                            [EndDate]
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="middle">
+                            <b>Date Requested : </b>
+                        </td>
+                        <td align="left" valign="middle">
+                            [DateRequested]
+                        </td>
+                        <td align="right" valign="middle">
+                        </td>
+                        <td align="left" valign="middle">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <hr style="width: 869px" />
+                <strong>Breakdown of Charges</strong>
+                <hr style="width: 869px" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="3" width="850" style="font-family: Arial;
+                    border: 2px solid black; margin: 5px 0; padding-left: 10px; text-align: center;
+                    vertical-align: middle;">
+                    <tr>
+                        <th width="250">
+                            Training Room
+                        </th>
+                        <th width="50">
+                            No. of Sub Room
+                        </th>
+                        <th width="90">
+                            Date
+                        </th>
+                        <th width="80">
+                            Start Time
+                        </th>
+                        <th width="80">
+                            End Time
+                        </th>
+                        <th width="50">
+                            Hours
+                        </th>
+                        <th width="80">
+                            Rate Per Day
+                        </th>
+                        <th width="80">
+                            Extension Rate Per Hour
+                        </th>
+                        <th width="90">
+                            Amount Charge
+                        </th>
+                    </tr>
+                    [TrainingRoom]
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="3" width="850" style="font-family: Arial;
+                    border: 2px solid black; margin: 5px 0; padding-left: 10px; text-align: center;
+                    vertical-align: middle;">
+                    <tr>
+                        <th width="300">
+                            Accomodation Room
+                        </th>
+                        <th width="125">
+                            Start Date
+                        </th>
+                        <th width="125">
+                            End Date
+                        </th>
+                        <th width="50">
+                            Nights
+                        </th>
+                        <th width="125">
+                            Rate Per Night
+                        </th>
+                        <th width="125">
+                            Amount Charge
+                        </th>
+                    </tr>
+                    [AccomodationRoom]
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="3" width="850" style="font-family: Arial;
+                    border: 2px solid black; margin: 5px 0; padding-left: 10px; text-align: center;
+                    vertical-align: middle;">
+                    <tr>
+                        <th width="425">
+                            Other Charges
+                        </th>
+                        <th width="425">
+                            Amount Charge
+                        </th>
+                    </tr>
+                    [OtherCharges]
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="3" width="850" style="font-family: Arial;
+                    border: 2px solid black; padding-left: 10px;">
+                    <tr>
+                        <td align="right" width="425">
+                            <strong>Total Payable : </strong>
+                        </td>
+                        <td align="left" width="425">
+                            [TotalPayable]
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px 5px 10px 5px;" valign="middle">
+            Reminder: Check payment should be made payable to <strong>RICHE GOULD REAL ESTATE, INC.</strong>
+            </td>
+        </tr>
+    </table>
+    <span>
+        <br />
+        <br />
+        <span>Please login to </span><a href="http://ho-ireserve.pjlhuillier.prod"><span>http://ho-ireserve.pjlhuillier.prod</span></a><span>
+            to view the complete details. For inquiries, kindly email</span> <a href="mailto:reserve@pjlhuillier.com">
+                <span>reserve@pjlhuillier.com</span></a>.<br />
+        <br />
+        <span>Thank you very much.</span><br />
+        <br />
+        <span><b>P & EL Realty Corporation</b></span><br />
+        <br />
+        <span>Please take time to send us your feedback on the services we provided you/or your
+            team thru this link:</span><br />
+        <a href="https://www.surveymonkey.com/s/SerbisyongBidaBest"><span>https://www.surveymonkey.com/s/SerbisyongBidaBest</span></a><span>
+            Thank you!</span></span>
+</body>
+</html>

@@ -208,5 +208,13 @@ public class Common
         get { return "[Reader].[usp_RetrieveCRSimilarPendingRequests]"; }
     }
 
-    #endregion
+  public static string usp_RetrieveChargedCompany
+  {
+    get { return "[Reader].[usp_RetrieveChargedCompany]"; }
+  }
+   public static string usp_RetrieveCostCenterByChargedCompanyId
+  {
+    get { return "[Reader].[usp_RetrieveCostCenterByChargedCompanyId]"; }
+  }
+  #endregion
 }

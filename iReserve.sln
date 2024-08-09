@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "iReserveWS", "iReserveWS\", "{7D87DFE6-71BE-4FE6-B5E0-FDFB1BEE9811}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
@@ -19,10 +21,14 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "iReserveWS", "iReserveWS\",
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "64340"
+		SlnRelativePath = "iReserveWS\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "iReserve", "iReserve\", "{F89A2668-95C9-4A6D-AE2A-745A9D52F732}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7D87DFE6-71BE-4FE6-B5E0-FDFB1BEE9811} = {7D87DFE6-71BE-4FE6-B5E0-FDFB1BEE9811}
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
 		Debug.AspNetCompiler.VirtualPath = "/iReserve"
@@ -40,6 +46,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "iReserve", "iReserve\", "{F
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "60797"
+		SlnRelativePath = "iReserve\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -55,5 +62,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8023AFCE-3428-4575-88B6-6599D694B535}
 	EndGlobalSection
 EndGlobal

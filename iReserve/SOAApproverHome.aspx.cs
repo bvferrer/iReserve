@@ -9,336 +9,392 @@ using System.Web.Services.Protocols;
 
 public partial class SOAApproverHome : System.Web.UI.Page
 {
-    public static Service svc = new Service();
+  public static Service svc = new Service();
 
-    protected void Page_Load(object sender, EventArgs e)
+  protected void Page_Load(object sender, EventArgs e)
+  {
+    Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
+    Response.Expires = -1500;
+    Response.CacheControl = "no-cache";
+
+    if (Convert.ToString(Session["UserID"]) == "")
     {
-        Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
-        Response.Expires = -1500;
-        Response.CacheControl = "no-cache";
-
-        if (Convert.ToString(Session["UserID"]) == "")
-        {
-            Response.BufferOutput = true;
-            Response.Redirect("Login.aspx");
-        }
-
-        string profileName = Convert.ToString(Session["ProfileName"]);
-
-        if (profileName != "")
-        {
-            if (profileName != "SOA Approver")
-            {
-                Response.Write("<script language=javascript> alert('You are not allowed to access this page. Please click on the Ok Button to go back to the Home Page.'); window.location.href ='Default.aspx';</script>");
-            }
-        }
-
-        if (!IsPostBack)
-        {
-
-        }
-
-        RefreshSOAForApprovalGridView();
-        RefreshApprovedSOAGridView();
+      Response.BufferOutput = true;
+      Response.Redirect("Login.aspx");
     }
 
-    #region Admin Search
+    string profileName = Convert.ToString(Session["ProfileName"]);
 
-    protected void adminSearchButton_Click(object sender, EventArgs e)
+    if (profileName != "")
     {
-        if (adminSearchTextBox.Text.Trim() == "")
-        {
-            searchValidationLabel.Text = "Please enter reference number.";
-        }
-        else
-        {
-            RefreshAdminSearchGridView();
-        }
+      if (profileName != "SOA Approver")
+      {
+        Response.Write("<script language=javascript> alert('You are not allowed to access this page. Please click on the Ok Button to go back to the Home Page.'); window.location.href ='Default.aspx';</script>");
+      }
     }
 
-    public void RefreshAdminSearchGridView()
+    if (!IsPostBack)
     {
-        searchValidationLabel.Text = "";
 
-        RetrieveCCRequestDetailsRequest retrieveCCRequestDetailsRequest = new RetrieveCCRequestDetailsRequest();
-        retrieveCCRequestDetailsRequest.CCRequestReferenceNo = adminSearchTextBox.Text.Trim();
-
-        RetrieveCCRequestDetailsResult retrieveCCRequestDetailsResult = svc.RetrieveCCRequestDetails(retrieveCCRequestDetailsRequest);
-
-        if (retrieveCCRequestDetailsResult.CCRequest.CCRequestReferenceNo == null)
-        {
-            searchValidationLabel.Text = "No record with this reference number found.";
-        }
-        else
-        {
-            searchValidationLabel.Text = "";
-
-            DataTable dt2 = new DataTable();
-            dt2.Columns.Add(new DataColumn("CCRequestReferenceNo", typeof(string)));
-            dt2.Columns.Add(new DataColumn("EventName", typeof(string)));
-            dt2.Columns.Add(new DataColumn("StartDate", typeof(DateTime)));
-            dt2.Columns.Add(new DataColumn("EndDate", typeof(DateTime)));
-            dt2.Columns.Add(new DataColumn("DateCreated", typeof(DateTime)));
-            dt2.Columns.Add(new DataColumn("CreatedBy", typeof(string)));
-            dt2.Columns.Add(new DataColumn("CostCenterName", typeof(string)));
-            dt2.Columns.Add(new DataColumn("SOAStatusName", typeof(string)));
-
-            DataRow dr = dt2.NewRow();
-            dr["CCRequestReferenceNo"] = retrieveCCRequestDetailsResult.CCRequest.CCRequestReferenceNo;
-            dr["EventName"] = retrieveCCRequestDetailsResult.CCRequest.EventName;
-            dr["StartDate"] = retrieveCCRequestDetailsResult.CCRequest.StartDate;
-            dr["EndDate"] = retrieveCCRequestDetailsResult.CCRequest.EndDate;
-            dr["DateCreated"] = retrieveCCRequestDetailsResult.CCRequest.DateCreated;
-            dr["CreatedBy"] = retrieveCCRequestDetailsResult.CCRequest.CreatedBy;
-            dr["CostCenterName"] = retrieveCCRequestDetailsResult.CCRequest.CostCenterName;
-            dr["SOAStatusName"] = retrieveCCRequestDetailsResult.CCRequest.SOAStatusName;
-            dt2.Rows.Add(dr);
-
-            adminSearchGridView.DataSource = dt2;
-            adminSearchGridView.DataBind();
-        }
     }
 
-    protected void adminSearchGridView_RowCreated(object sender, GridViewRowEventArgs e)
+    RefreshSOAForApprovalGridView();
+    RefreshApprovedSOAGridView();
+  }
+
+  #region Admin Search
+
+  protected void adminSearchButton_Click(object sender, EventArgs e)
+  {
+    if (adminSearchTextBox.Text.Trim() == "")
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            e.Row.Attributes.Add("onmouseover", "if(this.style.backgroundColor!='#D1DDF1'){this.originalstyle=this.style.backgroundColor;this.style.backgroundColor='#b2d2ff';}");
-            e.Row.Attributes.Add("onmouseout", "if(this.style.backgroundColor!='#D1DDF1'){this.style.backgroundColor=this.originalstyle;}");
-        }
+      searchValidationLabel.Text = "Please enter reference number.";
+    }
+    else
+    {
+      RefreshAdminSearchGridView();
+    }
+  }
+
+  public void RefreshAdminSearchGridView()
+  {
+    searchValidationLabel.Text = "";
+
+    RetrieveCCRequestDetailsRequest retrieveCCRequestDetailsRequest = new RetrieveCCRequestDetailsRequest();
+    retrieveCCRequestDetailsRequest.CCRequestReferenceNo = adminSearchTextBox.Text.Trim();
+
+    RetrieveCCRequestDetailsResult retrieveCCRequestDetailsResult = svc.RetrieveCCRequestDetails(retrieveCCRequestDetailsRequest);
+
+    if (retrieveCCRequestDetailsResult.CCRequest.CCRequestReferenceNo == null)
+    {
+      searchValidationLabel.Text = "No record with this reference number found.";
+    }
+    else
+    {
+      searchValidationLabel.Text = "";
+
+      DataTable dt2 = new DataTable();
+      dt2.Columns.Add(new DataColumn("CCRequestReferenceNo", typeof(string)));
+      dt2.Columns.Add(new DataColumn("EventName", typeof(string)));
+      dt2.Columns.Add(new DataColumn("StartDate", typeof(DateTime)));
+      dt2.Columns.Add(new DataColumn("EndDate", typeof(DateTime)));
+      dt2.Columns.Add(new DataColumn("DateCreated", typeof(DateTime)));
+      dt2.Columns.Add(new DataColumn("CreatedBy", typeof(string)));
+      dt2.Columns.Add(new DataColumn("ChargedCompany", typeof(string)));
+      dt2.Columns.Add(new DataColumn("CostCenterName", typeof(string)));
+      dt2.Columns.Add(new DataColumn("SOAStatusName", typeof(string)));
+
+      DataRow dr = dt2.NewRow();
+      dr["CCRequestReferenceNo"] = retrieveCCRequestDetailsResult.CCRequest.CCRequestReferenceNo;
+      dr["EventName"] = retrieveCCRequestDetailsResult.CCRequest.EventName;
+      dr["StartDate"] = retrieveCCRequestDetailsResult.CCRequest.StartDate;
+      dr["EndDate"] = retrieveCCRequestDetailsResult.CCRequest.EndDate;
+      dr["DateCreated"] = retrieveCCRequestDetailsResult.CCRequest.DateCreated;
+      dr["CreatedBy"] = retrieveCCRequestDetailsResult.CCRequest.CreatedBy;
+      dr["ChargedCompany"] = retrieveCCRequestDetailsResult.CCRequest.CostCenterName;
+
+      RetrieveCCRequestDetailsResult res = retrieveCCRequestDetailsResult;
+      string costCenter = res.CCRequest.ChargedCompanyCostCenter.CostCenterName != null ? res.CCRequest.ChargedCompanyCostCenter.CostCenterName : string.Empty;
+
+      dr["CostCenterName"] = costCenter;
+      dr["SOAStatusName"] = retrieveCCRequestDetailsResult.CCRequest.SOAStatusName;
+      dt2.Rows.Add(dr);
+
+      adminSearchGridView.DataSource = dt2;
+      adminSearchGridView.DataBind();
+    }
+  }
+
+  protected void adminSearchGridView_RowCreated(object sender, GridViewRowEventArgs e)
+  {
+    if (e.Row.RowType == DataControlRowType.DataRow)
+    {
+      e.Row.Attributes.Add("onmouseover", "if(this.style.backgroundColor!='#D1DDF1'){this.originalstyle=this.style.backgroundColor;this.style.backgroundColor='#b2d2ff';}");
+      e.Row.Attributes.Add("onmouseout", "if(this.style.backgroundColor!='#D1DDF1'){this.style.backgroundColor=this.originalstyle;}");
+    }
+  }
+
+  protected void adminSearchGridView_SelectedIndexChanged(object sender, EventArgs e)
+  {
+    Session["CCReferenceNumber"] = adminSearchGridView.SelectedValue.ToString();
+    Response.Redirect("SOAApproverDetails.aspx");
+  }
+
+  #endregion
+
+  #region For SOA Processing
+
+  public void RefreshSOAForApprovalGridView()
+  {
+    DataTable dt = new DataTable();
+    dt.Columns.Add(new DataColumn("CCRequestReferenceNo", typeof(string)));
+    dt.Columns.Add(new DataColumn("EventName", typeof(string)));
+    dt.Columns.Add(new DataColumn("StartDate", typeof(DateTime)));
+    dt.Columns.Add(new DataColumn("EndDate", typeof(DateTime)));
+    dt.Columns.Add(new DataColumn("DateCreated", typeof(DateTime)));
+    dt.Columns.Add(new DataColumn("CreatedBy", typeof(string)));
+    dt.Columns.Add(new DataColumn("ChargedCompany", typeof(string)));
+    dt.Columns.Add(new DataColumn("CostCenterName", typeof(string)));
+
+    RetrieveCCRequestRecordsBySOAStatusRequest retrieveCCRequestRecordsBySOAStatusRequest = new RetrieveCCRequestRecordsBySOAStatusRequest();
+    retrieveCCRequestRecordsBySOAStatusRequest.SOAStatusCode = SOAStatusCode.ForApproval;
+
+    RetrieveCCRequestRecordsBySOAStatusResult retrieveCCRequestRecordsBySOAStatusResult;
+
+    try
+    {
+      retrieveCCRequestRecordsBySOAStatusResult = svc.RetrieveCCRequestRecordsBySOAStatus(retrieveCCRequestRecordsBySOAStatusRequest);
+    }
+    catch (Exception ex)
+    {
+      throw new Exception(Settings.GenericWebServiceMessage);
     }
 
-    protected void adminSearchGridView_SelectedIndexChanged(object sender, EventArgs e)
+    if (retrieveCCRequestRecordsBySOAStatusResult.ResultStatus != iReserveWS.ResultStatus.Successful)
     {
-        Session["CCReferenceNumber"] = adminSearchGridView.SelectedValue.ToString();
-        Response.Redirect("SOAApproverDetails.aspx");
+      Utilities.MyMessageBox(retrieveCCRequestRecordsBySOAStatusResult.Message);
+    }
+    else
+    {
+      foreach (CCRequest record in retrieveCCRequestRecordsBySOAStatusResult.CCRequestList)
+      {
+        DataRow dr = dt.NewRow();
+        dr["CCRequestReferenceNo"] = record.CCRequestReferenceNo;
+        dr["EventName"] = record.EventName;
+        dr["StartDate"] = record.StartDate;
+        dr["EndDate"] = record.EndDate;
+        dr["DateCreated"] = record.DateCreated;
+        dr["CreatedBy"] = record.CreatedBy;
+        dr["ChargedCompany"] = record.CostCenterName;
+        string costCenter = record.ChargedCompanyCostCenter.CostCenterName != null ? record.ChargedCompanyCostCenter.CostCenterName : string.Empty;
+        dr["CostCenterName"] = costCenter;
+        dt.Rows.Add(dr);
+      }
+
+      soaForApprovalGridView.DataSource = dt;
+      soaForApprovalGridView.DataBind();
+
+      if (soaForApprovalGridView.Rows.Count == 0)
+      {
+        DataTable dt2 = dt.Clone();
+        dt2.Rows.Add(dt2.NewRow());
+
+        soaForApprovalGridView.DataSource = dt2;
+        soaForApprovalGridView.DataBind();
+
+        int columncount = soaForApprovalGridView.Rows[0].Cells.Count;
+        soaForApprovalGridView.Rows[0].Cells.Clear();
+        soaForApprovalGridView.Rows[0].Cells.Add(new TableCell());
+        soaForApprovalGridView.Rows[0].Cells[0].ColumnSpan = columncount;
+        soaForApprovalGridView.Rows[0].Cells[0].Text = "No record found";
+      }
+    }
+  }
+
+  protected void soaForApprovalGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+  {
+    int newPageIndex = e.NewPageIndex;
+
+    if (newPageIndex == -1)
+    {
+      soaForApprovalGridView.PageIndex = e.NewPageIndex + 1;
+    }
+    else
+    {
+      soaForApprovalGridView.PageIndex = e.NewPageIndex;
     }
 
-    #endregion
+    RefreshSOAForApprovalGridView();
+  }
 
-    #region For SOA Processing
-
-    public void RefreshSOAForApprovalGridView()
+  protected void soaForApprovalGridView_RowCreated(object sender, GridViewRowEventArgs e)
+  {
+    if (e.Row.RowType == DataControlRowType.DataRow)
     {
-        DataTable dt = new DataTable();
-        dt.Columns.Add(new DataColumn("CCRequestReferenceNo", typeof(string)));
-        dt.Columns.Add(new DataColumn("EventName", typeof(string)));
-        dt.Columns.Add(new DataColumn("StartDate", typeof(DateTime)));
-        dt.Columns.Add(new DataColumn("EndDate", typeof(DateTime)));
-        dt.Columns.Add(new DataColumn("DateCreated", typeof(DateTime)));
-        dt.Columns.Add(new DataColumn("CreatedBy", typeof(string)));
-        dt.Columns.Add(new DataColumn("CostCenterName", typeof(string)));
+      e.Row.Attributes.Add("onmouseover", "if(this.style.backgroundColor!='#D1DDF1'){this.originalstyle=this.style.backgroundColor;this.style.backgroundColor='#b2d2ff';}");
+      e.Row.Attributes.Add("onmouseout", "if(this.style.backgroundColor!='#D1DDF1'){this.style.backgroundColor=this.originalstyle;}");
+    }
+  }
 
-        RetrieveCCRequestRecordsBySOAStatusRequest retrieveCCRequestRecordsBySOAStatusRequest = new RetrieveCCRequestRecordsBySOAStatusRequest();
-        retrieveCCRequestRecordsBySOAStatusRequest.SOAStatusCode = SOAStatusCode.ForApproval;
+  protected void soaForApprovalGridView_DataBound(object sender, EventArgs e)
+  {
+    GridViewRow gvrPager = soaForApprovalGridView.BottomPagerRow;
+    if (gvrPager == null) return;
 
-        RetrieveCCRequestRecordsBySOAStatusResult retrieveCCRequestRecordsBySOAStatusResult = svc.RetrieveCCRequestRecordsBySOAStatus(retrieveCCRequestRecordsBySOAStatusRequest);
+    DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages5");
+    Label lblPageCount = (Label)gvrPager.Cells[0].FindControl("lblPageCount");
 
-        if (retrieveCCRequestRecordsBySOAStatusResult.ResultStatus != iReserveWS.ResultStatus.Successful)
+    if (ddlPages != null)
+    {
+      for (int i = 0; i < soaForApprovalGridView.PageCount; i++)
+      {
+        int intPageNumber = i + 1;
+        ListItem lstItem = new ListItem(intPageNumber.ToString());
+        if (i == soaForApprovalGridView.PageIndex)
         {
-            Utilities.MyMessageBox(retrieveCCRequestRecordsBySOAStatusResult.Message);
+          lstItem.Selected = true;
         }
-        else
-        {
-            soaForApprovalGridView.DataSource = retrieveCCRequestRecordsBySOAStatusResult.CCRequestList;
-            soaForApprovalGridView.DataBind();
-
-            if (soaForApprovalGridView.Rows.Count == 0)
-            {
-                DataTable dt2 = dt.Clone();
-                dt2.Rows.Add(dt2.NewRow());
-
-                soaForApprovalGridView.DataSource = dt2;
-                soaForApprovalGridView.DataBind();
-
-                int columncount = soaForApprovalGridView.Rows[0].Cells.Count;
-                soaForApprovalGridView.Rows[0].Cells.Clear();
-                soaForApprovalGridView.Rows[0].Cells.Add(new TableCell());
-                soaForApprovalGridView.Rows[0].Cells[0].ColumnSpan = columncount;
-                soaForApprovalGridView.Rows[0].Cells[0].Text = "No record found";
-            }
-        }
+        ddlPages.Items.Add(lstItem);
+      }
     }
 
-    protected void soaForApprovalGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    if (lblPageCount != null)
     {
-        int newPageIndex = e.NewPageIndex;
+      lblPageCount.Text = soaForApprovalGridView.PageCount.ToString();
+    }
+  }
 
-        if (newPageIndex == -1)
-        {
-            soaForApprovalGridView.PageIndex = e.NewPageIndex + 1;
-        }
-        else
-        {
-            soaForApprovalGridView.PageIndex = e.NewPageIndex;
-        }
+  protected void ddlPages5_SelectedIndexChanged(object sender, EventArgs e)
+  {
+    GridViewRow gvrPager = soaForApprovalGridView.BottomPagerRow;
+    DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages5");
 
-        RefreshSOAForApprovalGridView();
+    soaForApprovalGridView.PageIndex = ddlPages.SelectedIndex;
+    RefreshSOAForApprovalGridView();
+  }
+
+  protected void soaForApprovalGridView_SelectedIndexChanged(object sender, EventArgs e)
+  {
+    Session["CCReferenceNumber"] = soaForApprovalGridView.SelectedValue.ToString();
+    Response.Redirect("SOAApproverDetails.aspx");
+  }
+
+  #endregion
+
+  #region Approved SOA
+
+  public void RefreshApprovedSOAGridView()
+  {
+    DataTable dt = new DataTable();
+    dt.Columns.Add(new DataColumn("CCRequestReferenceNo", typeof(string)));
+    dt.Columns.Add(new DataColumn("EventName", typeof(string)));
+    dt.Columns.Add(new DataColumn("StartDate", typeof(DateTime)));
+    dt.Columns.Add(new DataColumn("EndDate", typeof(DateTime)));
+    dt.Columns.Add(new DataColumn("DateCreated", typeof(DateTime)));
+    dt.Columns.Add(new DataColumn("CreatedBy", typeof(string)));
+    dt.Columns.Add(new DataColumn("ChargedCompany", typeof(string)));
+    dt.Columns.Add(new DataColumn("CostCenterName", typeof(string)));
+
+    RetrieveCCRequestRecordsApprovedSOARequest retrieveCCRequestRecordsApprovedSOARequest = new RetrieveCCRequestRecordsApprovedSOARequest();
+    RetrieveCCRequestRecordsApprovedSOAResult retrieveCCRequestRecordsApprovedSOAResult;
+    try
+    {
+      retrieveCCRequestRecordsApprovedSOAResult = svc.RetrieveCCRequestRecordsApprovedSOA(retrieveCCRequestRecordsApprovedSOARequest);
+    }
+    catch(Exception ex)
+    {
+      throw new Exception(Settings.GenericWebServiceMessage);
     }
 
-    protected void soaForApprovalGridView_RowCreated(object sender, GridViewRowEventArgs e)
+
+    if (retrieveCCRequestRecordsApprovedSOAResult.ResultStatus != iReserveWS.ResultStatus.Successful)
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            e.Row.Attributes.Add("onmouseover", "if(this.style.backgroundColor!='#D1DDF1'){this.originalstyle=this.style.backgroundColor;this.style.backgroundColor='#b2d2ff';}");
-            e.Row.Attributes.Add("onmouseout", "if(this.style.backgroundColor!='#D1DDF1'){this.style.backgroundColor=this.originalstyle;}");
-        }
+      Utilities.MyMessageBox(retrieveCCRequestRecordsApprovedSOAResult.Message);
+    }
+    else
+    {
+      foreach (CCRequest record in retrieveCCRequestRecordsApprovedSOAResult.CCRequestList)
+      {
+        DataRow dr = dt.NewRow();
+        dr["CCRequestReferenceNo"] = record.CCRequestReferenceNo;
+        dr["EventName"] = record.EventName;
+        dr["StartDate"] = record.StartDate;
+        dr["EndDate"] = record.EndDate;
+        dr["DateCreated"] = record.DateCreated;
+        dr["CreatedBy"] = record.CreatedBy;
+        dr["ChargedCompany"] = record.CostCenterName;
+        string costCenter = record.ChargedCompanyCostCenter.CostCenterName != null ? record.ChargedCompanyCostCenter.CostCenterName : string.Empty;
+        dr["CostCenterName"] = costCenter;
+        dt.Rows.Add(dr);
+      }
+
+      approvedSOAGridView.DataSource = dt;
+      approvedSOAGridView.DataBind();
+
+      if (approvedSOAGridView.Rows.Count == 0)
+      {
+        DataTable dt2 = dt.Clone();
+        dt2.Rows.Add(dt2.NewRow());
+
+        approvedSOAGridView.DataSource = dt2;
+        approvedSOAGridView.DataBind();
+
+        int columncount = approvedSOAGridView.Rows[0].Cells.Count;
+        approvedSOAGridView.Rows[0].Cells.Clear();
+        approvedSOAGridView.Rows[0].Cells.Add(new TableCell());
+        approvedSOAGridView.Rows[0].Cells[0].ColumnSpan = columncount;
+        approvedSOAGridView.Rows[0].Cells[0].Text = "No record found";
+      }
+    }
+  }
+
+  protected void approvedSOAGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+  {
+    int newPageIndex = e.NewPageIndex;
+
+    if (newPageIndex == -1)
+    {
+      approvedSOAGridView.PageIndex = e.NewPageIndex + 1;
+    }
+    else
+    {
+      approvedSOAGridView.PageIndex = e.NewPageIndex;
     }
 
-    protected void soaForApprovalGridView_DataBound(object sender, EventArgs e)
+    RefreshApprovedSOAGridView();
+  }
+
+  protected void approvedSOAGridView_RowCreated(object sender, GridViewRowEventArgs e)
+  {
+    if (e.Row.RowType == DataControlRowType.DataRow)
     {
-        GridViewRow gvrPager = soaForApprovalGridView.BottomPagerRow;
-        if (gvrPager == null) return;
+      e.Row.Attributes.Add("onmouseover", "if(this.style.backgroundColor!='#D1DDF1'){this.originalstyle=this.style.backgroundColor;this.style.backgroundColor='#b2d2ff';}");
+      e.Row.Attributes.Add("onmouseout", "if(this.style.backgroundColor!='#D1DDF1'){this.style.backgroundColor=this.originalstyle;}");
+    }
+  }
 
-        DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages5");
-        Label lblPageCount = (Label)gvrPager.Cells[0].FindControl("lblPageCount");
+  protected void approvedSOAGridView_DataBound(object sender, EventArgs e)
+  {
+    GridViewRow gvrPager = approvedSOAGridView.BottomPagerRow;
+    if (gvrPager == null) return;
 
-        if (ddlPages != null)
+    DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages6");
+    Label lblPageCount = (Label)gvrPager.Cells[0].FindControl("lblPageCount");
+
+    if (ddlPages != null)
+    {
+      for (int i = 0; i < approvedSOAGridView.PageCount; i++)
+      {
+        int intPageNumber = i + 1;
+        ListItem lstItem = new ListItem(intPageNumber.ToString());
+        if (i == approvedSOAGridView.PageIndex)
         {
-            for (int i = 0; i < soaForApprovalGridView.PageCount; i++)
-            {
-                int intPageNumber = i + 1;
-                ListItem lstItem = new ListItem(intPageNumber.ToString());
-                if (i == soaForApprovalGridView.PageIndex)
-                {
-                    lstItem.Selected = true;
-                }
-                ddlPages.Items.Add(lstItem);
-            }
+          lstItem.Selected = true;
         }
-
-        if (lblPageCount != null)
-        {
-            lblPageCount.Text = soaForApprovalGridView.PageCount.ToString();
-        }
+        ddlPages.Items.Add(lstItem);
+      }
     }
 
-    protected void ddlPages5_SelectedIndexChanged(object sender, EventArgs e)
+    if (lblPageCount != null)
     {
-        GridViewRow gvrPager = soaForApprovalGridView.BottomPagerRow;
-        DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages5");
-
-        soaForApprovalGridView.PageIndex = ddlPages.SelectedIndex;
-        RefreshSOAForApprovalGridView();
+      lblPageCount.Text = approvedSOAGridView.PageCount.ToString();
     }
+  }
 
-    protected void soaForApprovalGridView_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        Session["CCReferenceNumber"] = soaForApprovalGridView.SelectedValue.ToString();
-        Response.Redirect("SOAApproverDetails.aspx");
-    }
+  protected void ddlPages6_SelectedIndexChanged(object sender, EventArgs e)
+  {
+    GridViewRow gvrPager = approvedSOAGridView.BottomPagerRow;
+    DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages6");
 
-    #endregion
+    approvedSOAGridView.PageIndex = ddlPages.SelectedIndex;
+    RefreshApprovedSOAGridView();
+  }
 
-    #region Approved SOA
+  protected void approvedSOAGridView_SelectedIndexChanged(object sender, EventArgs e)
+  {
+    Session["CCReferenceNumber"] = approvedSOAGridView.SelectedValue.ToString();
+    Response.Redirect("SOAApproverDetails.aspx");
+  }
 
-    public void RefreshApprovedSOAGridView()
-    {
-        DataTable dt = new DataTable();
-        dt.Columns.Add(new DataColumn("CCRequestReferenceNo", typeof(string)));
-        dt.Columns.Add(new DataColumn("EventName", typeof(string)));
-        dt.Columns.Add(new DataColumn("StartDate", typeof(DateTime)));
-        dt.Columns.Add(new DataColumn("EndDate", typeof(DateTime)));
-        dt.Columns.Add(new DataColumn("DateCreated", typeof(DateTime)));
-        dt.Columns.Add(new DataColumn("CreatedBy", typeof(string)));
-        dt.Columns.Add(new DataColumn("CostCenterName", typeof(string)));
-
-        RetrieveCCRequestRecordsApprovedSOARequest retrieveCCRequestRecordsApprovedSOARequest = new RetrieveCCRequestRecordsApprovedSOARequest();
-        RetrieveCCRequestRecordsApprovedSOAResult retrieveCCRequestRecordsApprovedSOAResult = svc.RetrieveCCRequestRecordsApprovedSOA(retrieveCCRequestRecordsApprovedSOARequest);
-
-        if (retrieveCCRequestRecordsApprovedSOAResult.ResultStatus != iReserveWS.ResultStatus.Successful)
-        {
-            Utilities.MyMessageBox(retrieveCCRequestRecordsApprovedSOAResult.Message);
-        }
-        else
-        {
-            approvedSOAGridView.DataSource = retrieveCCRequestRecordsApprovedSOAResult.CCRequestList;
-            approvedSOAGridView.DataBind();
-
-            if (approvedSOAGridView.Rows.Count == 0)
-            {
-                DataTable dt2 = dt.Clone();
-                dt2.Rows.Add(dt2.NewRow());
-
-                approvedSOAGridView.DataSource = dt2;
-                approvedSOAGridView.DataBind();
-
-                int columncount = approvedSOAGridView.Rows[0].Cells.Count;
-                approvedSOAGridView.Rows[0].Cells.Clear();
-                approvedSOAGridView.Rows[0].Cells.Add(new TableCell());
-                approvedSOAGridView.Rows[0].Cells[0].ColumnSpan = columncount;
-                approvedSOAGridView.Rows[0].Cells[0].Text = "No record found";
-            }
-        }
-    }
-
-    protected void approvedSOAGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        int newPageIndex = e.NewPageIndex;
-
-        if (newPageIndex == -1)
-        {
-            approvedSOAGridView.PageIndex = e.NewPageIndex + 1;
-        }
-        else
-        {
-            approvedSOAGridView.PageIndex = e.NewPageIndex;
-        }
-
-        RefreshApprovedSOAGridView();
-    }
-
-    protected void approvedSOAGridView_RowCreated(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            e.Row.Attributes.Add("onmouseover", "if(this.style.backgroundColor!='#D1DDF1'){this.originalstyle=this.style.backgroundColor;this.style.backgroundColor='#b2d2ff';}");
-            e.Row.Attributes.Add("onmouseout", "if(this.style.backgroundColor!='#D1DDF1'){this.style.backgroundColor=this.originalstyle;}");
-        }
-    }
-
-    protected void approvedSOAGridView_DataBound(object sender, EventArgs e)
-    {
-        GridViewRow gvrPager = approvedSOAGridView.BottomPagerRow;
-        if (gvrPager == null) return;
-
-        DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages5");
-        Label lblPageCount = (Label)gvrPager.Cells[0].FindControl("lblPageCount");
-
-        if (ddlPages != null)
-        {
-            for (int i = 0; i < approvedSOAGridView.PageCount; i++)
-            {
-                int intPageNumber = i + 1;
-                ListItem lstItem = new ListItem(intPageNumber.ToString());
-                if (i == approvedSOAGridView.PageIndex)
-                {
-                    lstItem.Selected = true;
-                }
-                ddlPages.Items.Add(lstItem);
-            }
-        }
-
-        if (lblPageCount != null)
-        {
-            lblPageCount.Text = approvedSOAGridView.PageCount.ToString();
-        }
-    }
-
-    protected void ddlPages6_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        GridViewRow gvrPager = approvedSOAGridView.BottomPagerRow;
-        DropDownList ddlPages = (DropDownList)gvrPager.Cells[0].FindControl("ddlPages6");
-
-        approvedSOAGridView.PageIndex = ddlPages.SelectedIndex;
-        RefreshApprovedSOAGridView();
-    }
-
-    protected void approvedSOAGridView_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        Session["CCReferenceNumber"] = approvedSOAGridView.SelectedValue.ToString();
-        Response.Redirect("SOAApproverDetails.aspx");
-    }
-
-    #endregion
+  #endregion
 }

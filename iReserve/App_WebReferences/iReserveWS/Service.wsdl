@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="ChangePassword">
@@ -373,6 +373,7 @@
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="CostCenterID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CostCenterName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChargedCompanyID" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetLastGeneratedReferenceNumber">
@@ -429,6 +430,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="Attachment" type="tns:CRRequestAttachment" />
           <s:element minOccurs="0" maxOccurs="1" name="AttendeeList" type="tns:ArrayOfCRRequestAttendee" />
           <s:element minOccurs="0" maxOccurs="1" name="RequestHistory" type="tns:CRRequestHistory" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedCompanyCostCenterID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedCompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChargedCompanyCostCenter" type="tns:ChargedCompanyCostCenter" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ConferenceRoom">
@@ -496,6 +500,21 @@
           <s:element minOccurs="0" maxOccurs="1" name="ProcessedByID" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ProcessedBy" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChargedCompanyCostCenter">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedCompanyCostCenterID" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedCompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CostCenterCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CostCenterName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SAPCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateCreated" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UpdatedBy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeletedBy" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateDeleted" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateUpdated" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="RetrieveCRRequestRecordsByStatusResponse">
@@ -1425,6 +1444,10 @@
           <s:element minOccurs="0" maxOccurs="1" name="CreatedBy" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="DateCreated" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="DateCancelled" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedCompanyCostCenterID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedCompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChargedCompanyCostCenter" type="tns:ChargedCompanyCostCenter" />
+          <s:element minOccurs="1" maxOccurs="1" name="PercentDiscount" type="s:float" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="CCRequestAttachment">
@@ -1495,6 +1518,14 @@
           <s:element minOccurs="0" maxOccurs="1" name="CCRequestReferenceNo" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="StatusCode" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CCRequestHistory" type="tns:CCRequestHistory" />
+          <s:element minOccurs="0" maxOccurs="1" name="CancellationFee" type="tns:CancellationFee" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CancellationFee">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CancellationID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CancellationFeePercent" type="s:float" />
         </s:sequence>
       </s:complexType>
       <s:element name="CancelCCRequestResponse">
@@ -1777,6 +1808,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="CostCenterName" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="DateCreated" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="DateCancelled" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChargedCompanyCostCenter" type="tns:ChargedCompanyCostCenter" />
         </s:sequence>
       </s:complexType>
       <s:element name="RetrieveAccomodationRoomRequestReport">
@@ -1826,6 +1858,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="CostCenterName" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="DateCreated" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="DateCancelled" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChargedCompanyCostCenter" type="tns:ChargedCompanyCostCenter" />
         </s:sequence>
       </s:complexType>
       <s:element name="RetrieveCCRequestRecordsBySOAStatus">
@@ -2101,6 +2134,12 @@
           <s:element minOccurs="0" maxOccurs="1" name="ORNumber" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ORAmount" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChargedCompanyCostCenter" type="tns:ChargedCompanyCostCenter" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateCancelled" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SOAStatusCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CancellationFee" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PercentDiscount" type="s:float" />
         </s:sequence>
       </s:complexType>
       <s:element name="TrainingRoomScheduleMappingTransaction">
@@ -2171,6 +2210,94 @@
       <s:element name="CodeboxResponse">
         <s:complexType />
       </s:element>
+      <s:element name="RetrieveChargedCompany">
+        <s:complexType />
+      </s:element>
+      <s:element name="RetrieveChargedCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveChargedCompanyResult" type="tns:ArrayOfChargedCompany" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfChargedCompany">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ChargedCompany" nillable="true" type="tns:ChargedCompany" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ChargedCompany">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ChargedCompanyID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyTelephone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyTIN" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Enabled" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyTypeID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsNAV" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SAPCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateSAPEnabled" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RetrieveCostCenterByCompanyChardgedId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="chargedCompanyId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveCostCenterByCompanyChardgedIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveCostCenterByCompanyChardgedIdResult" type="tns:ArrayOfChargedCompanyCostCenter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfChargedCompanyCostCenter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ChargedCompanyCostCenter" nillable="true" type="tns:ChargedCompanyCostCenter" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RetrieveCancellationFee">
+        <s:complexType />
+      </s:element>
+      <s:element name="RetrieveCancellationFeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveCancellationFeeResult" type="tns:CancellationFee" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCCRequestPercentDiscount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="updateCCRequestPercentDiscountRequest" type="tns:UpdateCCRequestPercentDiscountRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UpdateCCRequestPercentDiscountRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CCRequest" type="tns:CCRequest" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateCCRequestPercentDiscountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateCCRequestPercentDiscountResult" type="tns:UpdateCCRequestPercentDiscountResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UpdateCCRequestPercentDiscountResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ResultStatus" type="tns:ResultStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="LogID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MessageID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="ChangePasswordSoapIn">
@@ -2611,6 +2738,30 @@
   <wsdl:message name="CodeboxSoapOut">
     <wsdl:part name="parameters" element="tns:CodeboxResponse" />
   </wsdl:message>
+  <wsdl:message name="RetrieveChargedCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveChargedCompany" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveChargedCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveChargedCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveCostCenterByCompanyChardgedIdSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveCostCenterByCompanyChardgedId" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveCostCenterByCompanyChardgedIdSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveCostCenterByCompanyChardgedIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveCancellationFeeSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveCancellationFee" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveCancellationFeeSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveCancellationFeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCCRequestPercentDiscountSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCCRequestPercentDiscount" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCCRequestPercentDiscountSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCCRequestPercentDiscountResponse" />
+  </wsdl:message>
   <wsdl:portType name="ServiceSoap">
     <wsdl:operation name="ChangePassword">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">For Change Password</wsdl:documentation>
@@ -2976,6 +3127,26 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Displays Code Box details.</wsdl:documentation>
       <wsdl:input message="tns:CodeboxSoapIn" />
       <wsdl:output message="tns:CodeboxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveChargedCompany">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve charged company</wsdl:documentation>
+      <wsdl:input message="tns:RetrieveChargedCompanySoapIn" />
+      <wsdl:output message="tns:RetrieveChargedCompanySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveCostCenterByCompanyChardgedId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve cost center by company charged id</wsdl:documentation>
+      <wsdl:input message="tns:RetrieveCostCenterByCompanyChardgedIdSoapIn" />
+      <wsdl:output message="tns:RetrieveCostCenterByCompanyChardgedIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveCancellationFee">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve Cancellation Fee</wsdl:documentation>
+      <wsdl:input message="tns:RetrieveCancellationFeeSoapIn" />
+      <wsdl:output message="tns:RetrieveCancellationFeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCCRequestPercentDiscount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update CCRequest Percent Discount</wsdl:documentation>
+      <wsdl:input message="tns:UpdateCCRequestPercentDiscountSoapIn" />
+      <wsdl:output message="tns:UpdateCCRequestPercentDiscountSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
@@ -3630,6 +3801,42 @@
     </wsdl:operation>
     <wsdl:operation name="Codebox">
       <soap:operation soapAction="http://tempuri.org/Codebox" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveChargedCompany">
+      <soap:operation soapAction="http://tempuri.org/RetrieveChargedCompany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveCostCenterByCompanyChardgedId">
+      <soap:operation soapAction="http://tempuri.org/RetrieveCostCenterByCompanyChardgedId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveCancellationFee">
+      <soap:operation soapAction="http://tempuri.org/RetrieveCancellationFee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCCRequestPercentDiscount">
+      <soap:operation soapAction="http://tempuri.org/UpdateCCRequestPercentDiscount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4297,13 +4504,49 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RetrieveChargedCompany">
+      <soap12:operation soapAction="http://tempuri.org/RetrieveChargedCompany" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveCostCenterByCompanyChardgedId">
+      <soap12:operation soapAction="http://tempuri.org/RetrieveCostCenterByCompanyChardgedId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveCancellationFee">
+      <soap12:operation soapAction="http://tempuri.org/RetrieveCancellationFee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCCRequestPercentDiscount">
+      <soap12:operation soapAction="http://tempuri.org/UpdateCCRequestPercentDiscount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Service">
     <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
-      <soap:address location="http://localhost:64340/iReserveWS/Service.asmx" />
+      <soap:address location="http://localhost:64340/Service.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
-      <soap12:address location="http://localhost:64340/iReserveWS/Service.asmx" />
+      <soap12:address location="http://localhost:64340/Service.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

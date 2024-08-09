@@ -16,1910 +16,1987 @@ using System.Transactions;
 
 public class Service : System.Web.Services.WebService
 {
-    Common com = new Common();
+  Common com = new Common();
 
-    public Service()
+  public Service()
+  {
+
+    //Uncomment the following line if using designed components 
+    //InitializeComponent(); 
+  }
+
+
+  public string MEthod()
+  {
+    return "";
+  }
+
+  protected void ResponseWrite(string message)
+  {
+    Context.Response.Write(message);
+  }
+
+  #region ChangePassword
+  [WebMethod(Description = "For Change Password")]
+  public PasswordRecoveryInfo ChangePassword(string UserID)
+  {
+    try
+    {
+      DAL dal = new DAL();
+      PasswordRecoveryInfo changePass = dal.ChangePassword(UserID);
+      return changePass;
+    }
+
+    catch (Exception ex)
     {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        //Uncomment the following line if using designed components 
-        //InitializeComponent(); 
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
+  }
 
+  #endregion
 
-    public string MEthod()
+  #region SendChangePasswordNotif
+  [WebMethod(Description = "For Sending of Change Password Notification")]
+  public bool SendChangePasswordNotification(string Email)
+  {
+    try
     {
-        return "";
+      bool blnSuccess = false;
+
+      MailAddress senderAddress = new MailAddress("ireserve@pjlhuillier.com", "iReserve");
+      SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["Smtp.Client"]);
+
+      string strBody = "<PRE>A new password has been set on: " + DateTime.Now.ToLongDateString() + " ";
+      strBody += "at: " + DateTime.Now.ToLongTimeString() + " and will expire after 90 days. ";
+      strBody += "Make sure you change your password before it expires.";
+
+      MailMessage msg = new MailMessage(ConfigurationManager.AppSettings["Email.Sender"], Email);
+      msg.From = senderAddress;
+      msg.Subject = "User Password Changed";
+      msg.Body = strBody;
+      msg.IsBodyHtml = true;
+
+      client.Send(msg);
+      blnSuccess = true;
+
+      return blnSuccess;
     }
 
-    protected void ResponseWrite(string message)
+    catch (Exception ex)
     {
-        Context.Response.Write(message);
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
+
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
+  }
+  #endregion
+
+  #region UserPasswordRecovery
 
-    #region ChangePassword
-    [WebMethod(Description = "For Change Password")]
-    public PasswordRecoveryInfo ChangePassword(string UserID)
+  [WebMethod(Description = "For Password Retrieval")]
+  public PasswordRecoveryInfo UserPasswordRecovery(string UserID)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            PasswordRecoveryInfo changePass = dal.ChangePassword(UserID);
-            return changePass;
-        }
+      DAL dal = new DAL();
+      PasswordRecoveryInfo userPassRecover = dal.UserPasswordRecovery(UserID);
+      return userPassRecover;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
+  }
+  #endregion
 
-    #endregion
+  #region SendRecoveredPassword
 
-    #region SendChangePasswordNotif
-    [WebMethod(Description = "For Sending of Change Password Notification")]
-    public bool SendChangePasswordNotification(string Email)
+  [WebMethod(Description = "For Sending of Recovered Password")]
+  public bool SendRecoveredPassword(string UserID, string Password, string Email)
+  {
+    try
     {
-        try
-        {
-            bool blnSuccess = false;
+      bool blnSuccess = false;
 
-            MailAddress senderAddress = new MailAddress("ireserve@pjlhuillier.com", "iReserve");
-            SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["Smtp.Client"]);
+      MailAddress senderAddress = new MailAddress("ireserve@pjlhuillier.com", "iReserve");
+      SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["Smtp.Client"]);
 
-            string strBody = "<PRE>A new password has been set on: " + DateTime.Now.ToLongDateString() + " ";
-            strBody += "at: " + DateTime.Now.ToLongTimeString() + " and will expire after 90 days. ";
-            strBody += "Make sure you change your password before it expires.";
+      string strBody = "<PRE>Your account information are as follows: <br /><br />";
+      strBody += "User ID: " + UserID + "<br />";
+      strBody += "Password: " + Password + "<br /><br /><br />";
+      strBody += "If you have further question(s) or need an assistance, ";
+      strBody += "contact Networld Capital Ventures Incorporated or email at infosec@pjlhuillier.com <br /><br />";
+      strBody += "Note: <br />      Please do not reply to this system-generated email. No one will be able to reply.";
 
-            MailMessage msg = new MailMessage(ConfigurationManager.AppSettings["Email.Sender"], Email);
-            msg.From = senderAddress;
-            msg.Subject = "User Password Changed";
-            msg.Body = strBody;
-            msg.IsBodyHtml = true;
+      MailMessage msg = new MailMessage(ConfigurationManager.AppSettings["Email.Sender"], Email);
+      msg.From = senderAddress;
+      msg.Subject = "User Account Information";
+      msg.Body = strBody;
+      msg.IsBodyHtml = true;
 
-            client.Send(msg);
-            blnSuccess = true;
+      client.Send(msg);
+      blnSuccess = true;
 
-            return blnSuccess;
-        }
+      return blnSuccess;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+
+  #endregion
 
-    #region UserPasswordRecovery
+  #region CheckIfUserExist
 
-    [WebMethod(Description = "For Password Retrieval")]
-    public PasswordRecoveryInfo UserPasswordRecovery(string UserID)
+  [WebMethod(Description = "Check if User exists.")]
+  public bool CheckIfUserExist(string UserID)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            PasswordRecoveryInfo userPassRecover = dal.UserPasswordRecovery(UserID);
-            return userPassRecover;
-        }
+      bool blnUserExist = false;
 
-        catch (Exception ex)
+      using (SqlConnection conStr = new SqlConnection(Settings.AACFConnectionString))
+      {
+        string sql = "SELECT [fld_UserID] FROM [dbo].[tbl_Users] WHERE [fld_UserID] = '" + UserID + "'";
+
+        SqlCommand cmd = new SqlCommand(sql, conStr);
+        conStr.Open();
+        using (SqlDataReader reader = cmd.ExecuteReader())
         {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+          PasswordRecoveryInfo recoverPassword = new PasswordRecoveryInfo();
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
+          if (reader.Read())
+          {
+            blnUserExist = true;
+          }
+          reader.Close();
         }
+        return blnUserExist;
+      }
     }
-    #endregion
 
-    #region SendRecoveredPassword
-
-    [WebMethod(Description = "For Sending of Recovered Password")]
-    public bool SendRecoveredPassword(string UserID, string Password, string Email)
+    catch (Exception ex)
     {
-        try
-        {
-            bool blnSuccess = false;
-
-            MailAddress senderAddress = new MailAddress("ireserve@pjlhuillier.com", "iReserve");
-            SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["Smtp.Client"]);
-
-            string strBody = "<PRE>Your account information are as follows: <br /><br />";
-            strBody += "User ID: " + UserID + "<br />";
-            strBody += "Password: " + Password + "<br /><br /><br />";
-            strBody += "If you have further question(s) or need an assistance, ";
-            strBody += "contact Networld Capital Ventures Incorporated or email at infosec@pjlhuillier.com <br /><br />";
-            strBody += "Note: <br />      Please do not reply to this system-generated email. No one will be able to reply.";
-
-            MailMessage msg = new MailMessage(ConfigurationManager.AppSettings["Email.Sender"], Email);
-            msg.From = senderAddress;
-            msg.Subject = "User Account Information";
-            msg.Body = strBody;
-            msg.IsBodyHtml = true;
-
-            client.Send(msg);
-            blnSuccess = true;
-
-            return blnSuccess;
-        }
-
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
+  }
 
-    #endregion
+  #endregion
 
-    #region CheckIfUserExist
+  #region RetrieveLocationRecords
+  [WebMethod(Description = "Retrieve records from the Location table.")]
+  public List<MaintenanceLocationList> RetrieveLocationRecords(string LocationCode, string LocationName)
+  {
+    try
+    {
+      DAL dal = new DAL();
+      List<MaintenanceLocationList> locationRecordList = dal.RetrieveLocationRecords(LocationCode, LocationName);
+      return locationRecordList;
+    }
 
-    [WebMethod(Description = "Check if User exists.")]
-    public bool CheckIfUserExist(string UserID)
+    catch (Exception ex)
     {
-        try
-        {
-            bool blnUserExist = false;
-
-            using (SqlConnection conStr = new SqlConnection(Settings.AACFConnectionString))
-            {
-                string sql = "SELECT [fld_UserID] FROM [dbo].[tbl_Users] WHERE [fld_UserID] = '" + UserID + "'";
-
-                SqlCommand cmd = new SqlCommand(sql, conStr);
-                conStr.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    PasswordRecoveryInfo recoverPassword = new PasswordRecoveryInfo();
-
-                    if (reader.Read())
-                    {
-                        blnUserExist = true;
-                    }
-                    reader.Close();
-                }
-                return blnUserExist;
-            }
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
+    }
+  }
+  #endregion
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+  #region RetrieveLocationRecordDetails
+  [WebMethod(Description = "For location record retrieval.")]
+  public MaintenanceLocationList RetrieveLocationRecordDetails(int LocationID)
+  {
+    try
+    {
+      DAL dal = new DAL();
+      MaintenanceLocationList locationRecord = dal.RetrieveLocationRecordDetails(LocationID);
+      return locationRecord;
     }
 
-    #endregion
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
+
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
+    }
+  }
+  #endregion
 
-    #region RetrieveLocationRecords
-    [WebMethod(Description = "Retrieve records from the Location table.")]
-    public List<MaintenanceLocationList> RetrieveLocationRecords(string LocationCode, string LocationName)
+  #region ValidateLocationRecord
+  [WebMethod(Description = "Validate insertion/modification/deletion of location record.")]
+  public int ValidateLocationRecord(int Type, int LocationID, string LocationCode, string LocationName)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            List<MaintenanceLocationList> locationRecordList = dal.RetrieveLocationRecords(LocationCode, LocationName);
-            return locationRecordList;
-        }
+      DAL dal = new DAL();
+      int validationStatus = dal.ValidateLocationRecord(Type, LocationID, LocationCode, LocationName);
+      return validationStatus;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveLocationRecordDetails
-    [WebMethod(Description = "For location record retrieval.")]
-    public MaintenanceLocationList RetrieveLocationRecordDetails(int LocationID)
+  #region LocationRecordTransaction
+  [WebMethod(Description = "For location record transaction.")]
+  public void LocationRecordTransaction(int Type, string UserID, int LocationID,
+                                          string LocationCode, string LocationName,
+                                          string LocationDesc, bool IsDeleted, string MACAddress,
+                                          string Browser, string BrowserVersion)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            MaintenanceLocationList locationRecord = dal.RetrieveLocationRecordDetails(LocationID);
-            return locationRecord;
-        }
+      DAL dal = new DAL();
+      dal.LocationRecordTransaction(Type, UserID, LocationID, LocationCode, LocationName, LocationDesc, IsDeleted,
+                                          MACAddress, Browser, BrowserVersion);
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region ValidateLocationRecord
-    [WebMethod(Description = "Validate insertion/modification/deletion of location record.")]
-    public int ValidateLocationRecord(int Type, int LocationID, string LocationCode, string LocationName)
+  #region RetrieveConferenceRoomRecords
+  [WebMethod(Description = "Retrieve records from the Room table.")]
+  public List<MaintenanceConferenceRoomList> RetrieveConferenceRoomRecords(string LocationName, string RoomCode, string RoomName)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            int validationStatus = dal.ValidateLocationRecord(Type, LocationID, LocationCode, LocationName);
-            return validationStatus;
-        }
+      DAL dal = new DAL();
+      List<MaintenanceConferenceRoomList> roomRecordList = dal.RetrieveConferenceRoomRecords(LocationName, RoomCode, RoomName);
+      return roomRecordList;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region LocationRecordTransaction
-    [WebMethod(Description = "For location record transaction.")]
-    public void LocationRecordTransaction(int Type, string UserID, int LocationID,
-                                            string LocationCode, string LocationName,
-                                            string LocationDesc, bool IsDeleted, string MACAddress,
-                                            string Browser, string BrowserVersion)
+  #region RetrieveConferenceRoomRecordDetails
+  [WebMethod(Description = "For room record retrieval.")]
+  public MaintenanceConferenceRoomList RetrieveConferenceRoomRecordDetails(int RoomID)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            dal.LocationRecordTransaction(Type, UserID, LocationID, LocationCode, LocationName, LocationDesc, IsDeleted,
-                                                MACAddress, Browser, BrowserVersion);
-        }
+      DAL dal = new DAL();
+      MaintenanceConferenceRoomList roomRecord = dal.RetrieveConferenceRoomRecordDetails(RoomID);
+      return roomRecord;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveConferenceRoomRecords
-    [WebMethod(Description = "Retrieve records from the Room table.")]
-    public List<MaintenanceConferenceRoomList> RetrieveConferenceRoomRecords(string LocationName, string RoomCode, string RoomName)
+  #region ValidateConferenceRoomRecord
+  [WebMethod(Description = "Validate insertion/modification/deletion of room record.")]
+  public int ValidateConferenceRoomRecord(int Type, int RoomID, string RoomCode, string RoomName, int monitorCode)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            List<MaintenanceConferenceRoomList> roomRecordList = dal.RetrieveConferenceRoomRecords(LocationName, RoomCode, RoomName);
-            return roomRecordList;
-        }
+      DAL dal = new DAL();
+      int validationStatus = dal.ValidateConferenceRoomRecord(Type, RoomID, RoomCode, RoomName, monitorCode);
+      return validationStatus;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveConferenceRoomRecordDetails
-    [WebMethod(Description = "For room record retrieval.")]
-    public MaintenanceConferenceRoomList RetrieveConferenceRoomRecordDetails(int RoomID)
+  #region ConferenceRoomRecordTransaction
+  [WebMethod(Description = "For room record transaction.")]
+  public void ConferenceRoomRecordTransaction(int Type, string UserID, int RoomID, string RoomCode, string RoomName,
+                                          string RoomDesc, int LocationID, int MaxPerson, bool IsDataPortAvailable,
+                                          bool IsMonitorAvailable, string RatePerHour, string TabletID,
+                                          int MonitorDisplayCode, bool IsDeleted,
+                                          string MACAddress, string Browser, string BrowserVersion)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            MaintenanceConferenceRoomList roomRecord = dal.RetrieveConferenceRoomRecordDetails(RoomID);
-            return roomRecord;
-        }
+      DAL dal = new DAL();
+      dal.ConferenceRoomRecordTransaction(Type, UserID, RoomID, RoomCode, RoomName, RoomDesc, LocationID, MaxPerson,
+                                  IsDataPortAvailable, IsMonitorAvailable, RatePerHour, TabletID, MonitorDisplayCode,
+                                  IsDeleted, MACAddress, Browser, BrowserVersion);
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region ValidateConferenceRoomRecord
-    [WebMethod(Description = "Validate insertion/modification/deletion of room record.")]
-    public int ValidateConferenceRoomRecord(int Type, int RoomID, string RoomCode, string RoomName, int monitorCode)
+  #region RetrieveMonitorDisplayRecords
+  [WebMethod(Description = "Retrieve records from the Monitor Display table.")]
+  public List<MonitorDisplay> RetrieveMonitorDisplayRecords()
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            int validationStatus = dal.ValidateConferenceRoomRecord(Type, RoomID, RoomCode, RoomName, monitorCode);
-            return validationStatus;
-        }
+      DAL dal = new DAL();
+      List<MonitorDisplay> monitorDisplayRecordList = dal.RetrieveMonitorDisplayRecords();
+      return monitorDisplayRecordList;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region ConferenceRoomRecordTransaction
-    [WebMethod(Description = "For room record transaction.")]
-    public void ConferenceRoomRecordTransaction(int Type, string UserID, int RoomID, string RoomCode, string RoomName,
-                                            string RoomDesc, int LocationID, int MaxPerson, bool IsDataPortAvailable,
-                                            bool IsMonitorAvailable, string RatePerHour, string TabletID,
-                                            int MonitorDisplayCode, bool IsDeleted,
-                                            string MACAddress, string Browser, string BrowserVersion)
+  #region RetrieveConferenceRoomSchedules
+  [WebMethod(Description = "Retrieve conference room schedule")]
+  public DataTable RetrieveConferenceRoomSchedules(string dateFrom, int roomID)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            dal.ConferenceRoomRecordTransaction(Type, UserID, RoomID, RoomCode, RoomName, RoomDesc, LocationID, MaxPerson,
-                                        IsDataPortAvailable, IsMonitorAvailable, RatePerHour, TabletID, MonitorDisplayCode,
-                                        IsDeleted, MACAddress, Browser, BrowserVersion);
-        }
+      DAL dal = new DAL();
+      DataTable roomSchedule = new DataTable("RoomSchedule");
+      roomSchedule = dal.RetrieveConferenceRoomSchedules(dateFrom, roomID);
+      return roomSchedule;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveMonitorDisplayRecords
-    [WebMethod(Description = "Retrieve records from the Monitor Display table.")]
-    public List<MonitorDisplay> RetrieveMonitorDisplayRecords()
+  #region RetrieveCRDisplaySchedule
+  [WebMethod(Description = "Retrieve conference room schedule for monitor display")]
+  public DataTable RetrieveCRDisplaySchedule(string date, int monitorDisplayCode)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            List<MonitorDisplay> monitorDisplayRecordList = dal.RetrieveMonitorDisplayRecords();
-            return monitorDisplayRecordList;
-        }
+      DAL dal = new DAL();
+      return dal.RetrieveCRDisplaySchedule(date, monitorDisplayCode);
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveConferenceRoomSchedules
-    [WebMethod(Description = "Retrieve conference room schedule")]
-    public DataTable RetrieveConferenceRoomSchedules(string dateFrom, int roomID)
+  #region RetrieveTimeSlots
+  [WebMethod(Description = "Retrieve Conference Room time slots.")]
+  public List<CRTimeSlot> RetrieveTimeSlots()
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            DataTable roomSchedule = new DataTable("RoomSchedule");
-            roomSchedule = dal.RetrieveConferenceRoomSchedules(dateFrom, roomID);
-            return roomSchedule;
-        }
+      DAL dal = new DAL();
+      List<CRTimeSlot> timeSlotList = dal.RetrieveTimeSlots();
+      return timeSlotList;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRDisplaySchedule
-    [WebMethod(Description = "Retrieve conference room schedule for monitor display")]
-    public DataTable RetrieveCRDisplaySchedule(string date, int monitorDisplayCode)
+  #region RetrieveCostCenter
+  [WebMethod(Description = "Retrieve Cost Center list.")]
+  public List<CostCenter> RetrieveCostCenter()
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            return dal.RetrieveCRDisplaySchedule(date, monitorDisplayCode);
-        }
+      DAL dal = new DAL();
+      List<CostCenter> costCenterList = dal.RetrieveCostCenterRecords();
+      return costCenterList;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveTimeSlots
-    [WebMethod(Description = "Retrieve Conference Room time slots.")]
-    public List<CRTimeSlot> RetrieveTimeSlots()
+  #region GetLastGeneratedReferenceNumber
+  [WebMethod(Description = "Get last generated reference number.")]
+  public CRLastGeneratedReferenceNumber GetLastGeneratedReferenceNumber(DateTime dateGenerated)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            List<CRTimeSlot> timeSlotList = dal.RetrieveTimeSlots();
-            return timeSlotList;
-        }
+      CRLastGeneratedReferenceNumber lastGeneratedRefNo = new CRLastGeneratedReferenceNumber();
+      lastGeneratedRefNo.GetLastGeneratedReferenceNumber(dateGenerated);
+      return lastGeneratedRefNo;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCostCenter
-    [WebMethod(Description = "Retrieve Cost Center list.")]
-    public List<CostCenter> RetrieveCostCenter()
+  #region RetrieveCRRequestRecordsByStatus
+  [WebMethod(Description = "Retrieve reservation request records by status.")]
+  public List<CRRequest> RetrieveCRRequestRecordsByStatus(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            List<CostCenter> costCenterList = dal.RetrieveCostCenterRecords();
-            return costCenterList;
-        }
+      return request.RetrieveCRRequestRecordsByStatus();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region GetLastGeneratedReferenceNumber
-    [WebMethod(Description = "Get last generated reference number.")]
-    public CRLastGeneratedReferenceNumber GetLastGeneratedReferenceNumber(DateTime dateGenerated)
+  #region RetrieveCRRequestDetails
+  [WebMethod(Description = "Retrieve reservation request details by reference number.")]
+  public CRRequest RetrieveCRRequestDetails(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            CRLastGeneratedReferenceNumber lastGeneratedRefNo = new CRLastGeneratedReferenceNumber();
-            lastGeneratedRefNo.GetLastGeneratedReferenceNumber(dateGenerated);
-            return lastGeneratedRefNo;
-        }
+      CRRequest returnValue = new CRRequest();
+      returnValue.RetrieveCRRequestDetails(request.RequestReferenceNo);
+      returnValue.RetrieveCRRequestAttendees();
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
+
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestRecordsByStatus
-    [WebMethod(Description = "Retrieve reservation request records by status.")]
-    public List<CRRequest> RetrieveCRRequestRecordsByStatus(CRRequest request)
+  #region InsertNewRequest
+  [WebMethod(Description = "Insert new request details.")]
+  public Result InsertNewRequest(CRRequest request)
+  {
+    Result returnValue = null;
+
+    try
     {
-        try
-        {
-            return request.RetrieveCRRequestRecordsByStatus();
-        }
+      using (TransactionScope transactionScope = new TransactionScope())
+      {
+        request.InsertCRRequest();
+        request.Attachment.InsertCRRequestAttachment();
+        request.RequestHistory.InsertCRRequestHistory();
+        request.InsertCRRequestAttendeeList();
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+        EmailNotification emailNotification = new EmailNotification();
+        emailNotification.SendEmailNotification(request);
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+        transactionScope.Complete();
+      }
+
+      returnValue = new Result();
+      returnValue.ResultStatus = ResultStatus.Successful;
+
+      return returnValue;
     }
-    #endregion
 
-    #region RetrieveCRRequestDetails
-    [WebMethod(Description = "Retrieve reservation request details by reference number.")]
-    public CRRequest RetrieveCRRequestDetails(CRRequest request)
+    catch (Exception ex)
     {
-        try
-        {
-            CRRequest returnValue = new CRRequest();
-            returnValue.RetrieveCRRequestDetails(request.RequestReferenceNo);
-            returnValue.RetrieveCRRequestAttendees();
-
-            return returnValue;
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      returnValue = new Result();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      return returnValue;
     }
-    #endregion
+  }
+  #endregion
 
-    #region InsertNewRequest
-    [WebMethod(Description = "Insert new request details.")]
-    public Result InsertNewRequest(CRRequest request)
+  #region UpdateReservationRequest
+  [WebMethod(Description = "Update reservation request status.")]
+  public Result UpdateReservationRequest(CRRequest request)
+  {
+    Result returnValue = null;
+
+    try
     {
-        Result returnValue = null;
+      using (TransactionScope transactionScope = new TransactionScope())
+      {
+        request.UpdateCRRequestStatus();
+        request.RequestHistory.InsertCRRequestHistory();
+        request.RetrieveCRRequestDetails(request.RequestReferenceNo);
 
-        try
+        if (request.Status.StatusCode == StatusCode.Confirmed)
         {
-            using (TransactionScope transactionScope = new TransactionScope())
-            {
-                request.InsertCRRequest();
-                request.Attachment.InsertCRRequestAttachment();
-                request.RequestHistory.InsertCRRequestHistory();
-                request.InsertCRRequestAttendeeList();
-
-                EmailNotification emailNotification = new EmailNotification();
-                emailNotification.SendEmailNotification(request);
-
-                transactionScope.Complete();
-            }
-
-            returnValue = new Result();
-            returnValue.ResultStatus = ResultStatus.Successful;
-
-            return returnValue;
+          request.InsertScheduleMapping();
+          request.DeclineCRSimilarPendingRequests();
         }
-
-        catch (Exception ex)
+        else if (request.Status.StatusCode == StatusCode.ForCancellation)
         {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
-
-            returnValue = new Result();
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
-
-            return returnValue;
+          request.Attachment.InsertCRRequestAttachment();
         }
+        else if (request.Status.StatusCode == StatusCode.Cancelled)
+        {
+          request.UpdateScheduleMappingStatus();
+        }
+
+        EmailNotification emailNotification = new EmailNotification();
+        emailNotification.SendEmailNotification(request);
+
+        transactionScope.Complete();
+      }
+
+      returnValue = new Result();
+      returnValue.ResultStatus = ResultStatus.Successful;
+
+      return returnValue;
     }
-    #endregion
 
-    #region UpdateReservationRequest
-    [WebMethod(Description = "Update reservation request status.")]
-    public Result UpdateReservationRequest(CRRequest request)
+    catch (Exception ex)
     {
-        Result returnValue = null;
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        try
-        {
-            using (TransactionScope transactionScope = new TransactionScope())
-            {
-                request.UpdateCRRequestStatus();
-                request.RequestHistory.InsertCRRequestHistory();
-                request.RetrieveCRRequestDetails(request.RequestReferenceNo);
-
-                if (request.Status.StatusCode == StatusCode.Confirmed)
-                {
-                    request.InsertScheduleMapping();
-                    request.DeclineCRSimilarPendingRequests();
-                }
-                else if (request.Status.StatusCode == StatusCode.ForCancellation)
-                {
-                    request.Attachment.InsertCRRequestAttachment();
-                }
-                else if (request.Status.StatusCode == StatusCode.Cancelled)
-                {
-                    request.UpdateScheduleMappingStatus();
-                }
-
-                EmailNotification emailNotification = new EmailNotification();
-                emailNotification.SendEmailNotification(request);
-
-                transactionScope.Complete();
-            }
-
-            returnValue = new Result();
-            returnValue.ResultStatus = ResultStatus.Successful;
-
-            return returnValue;
-        }
+      returnValue = new Result();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
-
-            returnValue = new Result();
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
-
-            return returnValue;
-        }
+      return returnValue;
     }
-    #endregion
+  }
+  #endregion
+
+  #region CancelReservationRequest
+  [WebMethod(Description = "Update reservation request status.")]
+  public Result CancelReservationRequest(CRRequest request)
+  {
+    Result returnValue = null;
 
-    #region CancelReservationRequest
-    [WebMethod(Description = "Update reservation request status.")]
-    public Result CancelReservationRequest(CRRequest request)
+    try
     {
-        Result returnValue = null;
+      using (TransactionScope transactionScope = new TransactionScope())
+      {
+        request.UpdateCRRequestStatus();
+        request.RequestHistory.InsertCRRequestHistory();
+        request.RetrieveCRRequestDetails(request.RequestReferenceNo);
 
-        try
-        {
-            using (TransactionScope transactionScope = new TransactionScope())
-            {
-                request.UpdateCRRequestStatus();
-                request.RequestHistory.InsertCRRequestHistory();
-                request.RetrieveCRRequestDetails(request.RequestReferenceNo);
+        EmailNotification emailNotification = new EmailNotification();
+        emailNotification.SendEmailNotification(request);
 
-                EmailNotification emailNotification = new EmailNotification();
-                emailNotification.SendEmailNotification(request);
+        transactionScope.Complete();
+      }
 
-                transactionScope.Complete();
-            }
+      returnValue = new Result();
+      returnValue.ResultStatus = ResultStatus.Successful;
 
-            returnValue = new Result();
-            returnValue.ResultStatus = ResultStatus.Successful;
+      return returnValue;
+    }
 
-            return returnValue;
-        }
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
-
-            returnValue = new Result();
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
-
-            return returnValue;
-        }
+      returnValue = new Result();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
+
+      return returnValue;
     }
-    #endregion
+  }
+  #endregion
 
-    #region ValidateScheduleAvailability
-    [WebMethod(Description = "Check if selected room and schedule is available.")]
-    public bool ValidateScheduleAvailability(CRRequest request)
+  #region ValidateScheduleAvailability
+  [WebMethod(Description = "Check if selected room and schedule is available.")]
+  public bool ValidateScheduleAvailability(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            return request.ValidateScheduleAvailability();
-        }
+      return request.ValidateScheduleAvailability();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestRecordsByRequestor
-    [WebMethod(Description = "Retrieve reservation request records by requestor.")]
-    public List<CRRequest> RetrieveCRRequestRecordsByRequestor(CRRequest request)
+  #region RetrieveCRRequestRecordsByRequestor
+  [WebMethod(Description = "Retrieve reservation request records by requestor.")]
+  public List<CRRequest> RetrieveCRRequestRecordsByRequestor(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            return request.RetrieveCRRequestRecordsByRequestor();
-        }
+      return request.RetrieveCRRequestRecordsByRequestor();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestDetailsByRequestor
-    [WebMethod(Description = "Retrieve reservation request details by reference number and requestor.")]
-    public CRRequest RetrieveCRRequestDetailsByRequestor(CRRequest request)
+  #region RetrieveCRRequestDetailsByRequestor
+  [WebMethod(Description = "Retrieve reservation request details by reference number and requestor.")]
+  public CRRequest RetrieveCRRequestDetailsByRequestor(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            CRRequest returnValue = new CRRequest();
-            returnValue.RetrieveCRRequestDetailsByRequestor(request);
+      CRRequest returnValue = new CRRequest();
+      returnValue.RetrieveCRRequestDetailsByRequestor(request);
 
-            return returnValue;
-        }
+      return returnValue;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestHistoryRecords
-    [WebMethod(Description = "Retrieve reservation request history by request reference number.")]
-    public List<CRRequestHistory> RetrieveCRRequestHistoryRecords(CRRequest request)
+  #region RetrieveCRRequestHistoryRecords
+  [WebMethod(Description = "Retrieve reservation request history by request reference number.")]
+  public List<CRRequestHistory> RetrieveCRRequestHistoryRecords(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            return request.RequestHistory.RetrieveCRRequestHistoryRecords();
-        }
+      return request.RequestHistory.RetrieveCRRequestHistoryRecords();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestAttachment
-    [WebMethod(Description = "Retrieve reservation request history by request reference number.")]
-    public List<CRRequestAttachment> RetrieveCRRequestAttachment(CRRequest request)
+  #region RetrieveCRRequestAttachment
+  [WebMethod(Description = "Retrieve reservation request history by request reference number.")]
+  public List<CRRequestAttachment> RetrieveCRRequestAttachment(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            return request.Attachment.RetrieveCRRequestAttachment();
-        }
+      return request.Attachment.RetrieveCRRequestAttachment();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestAttachmentByStatus
-    [WebMethod(Description = "Retrieve reservation request attachment by status.")]
-    public CRRequestAttachment RetrieveCRRequestAttachmentByStatus(CRRequest request)
+  #region RetrieveCRRequestAttachmentByStatus
+  [WebMethod(Description = "Retrieve reservation request attachment by status.")]
+  public CRRequestAttachment RetrieveCRRequestAttachmentByStatus(CRRequest request)
+  {
+    try
     {
-        try
-        {
-            CRRequestAttachment returnValue = new CRRequestAttachment();
-            returnValue.RetrieveCRRequestAttachmentByStatus(request);
+      CRRequestAttachment returnValue = new CRRequestAttachment();
+      returnValue.RetrieveCRRequestAttachmentByStatus(request);
 
-            return returnValue;
-        }
+      return returnValue;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestRecordsReport
-    [WebMethod(Description = "Retrieve reservation request records by requestor.")]
-    public List<CRRequest> RetrieveCRRequestRecordsReport(CRReport report)
+  #region RetrieveCRRequestRecordsReport
+  [WebMethod(Description = "Retrieve reservation request records by requestor.")]
+  public List<CRRequest> RetrieveCRRequestRecordsReport(CRReport report)
+  {
+    try
     {
-        try
-        {
-            return report.RetrieveCRRequestRecordsReport();
-        }
+      return report.RetrieveCRRequestRecordsReport();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRRequestRecordsReportByDate
-    [WebMethod(Description = "Retrieve reservation request records by requestor.")]
-    public List<CRRequest> RetrieveCRRequestRecordsReportByDate(CRReport report)
+  #region RetrieveCRRequestRecordsReportByDate
+  [WebMethod(Description = "Retrieve reservation request records by requestor.")]
+  public List<CRRequest> RetrieveCRRequestRecordsReportByDate(CRReport report)
+  {
+    try
     {
-        try
-        {
-            return report.RetrieveCRRequestRecordsReportByDate();
-        }
+      return report.RetrieveCRRequestRecordsReportByDate();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveRequestCountByStatus
-    [WebMethod(Description = "Retrieve conference room request count by status.")]
-    public DataTable RetrieveRequestCountByStatus(int statusCode)
+  #region RetrieveRequestCountByStatus
+  [WebMethod(Description = "Retrieve conference room request count by status.")]
+  public DataTable RetrieveRequestCountByStatus(int statusCode)
+  {
+    try
     {
-        try
-        {
-            DAL dal = new DAL();
-            return dal.RetrieveRequestCountByStatus(statusCode);
-        }
+      DAL dal = new DAL();
+      return dal.RetrieveRequestCountByStatus(statusCode);
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveCRTimeSlotDetails
-    [WebMethod(Description = "Retrieve timeslot details by timeslot ID.")]
-    public CRTimeSlot RetrieveCRTimeSlotDetails(CRTimeSlot timeSlot)
+  #region RetrieveCRTimeSlotDetails
+  [WebMethod(Description = "Retrieve timeslot details by timeslot ID.")]
+  public CRTimeSlot RetrieveCRTimeSlotDetails(CRTimeSlot timeSlot)
+  {
+    try
     {
-        try
-        {
-            CRTimeSlot returnValue = new CRTimeSlot();
-            returnValue.RetrieveCRTimeSlotDetails(timeSlot);
+      CRTimeSlot returnValue = new CRTimeSlot();
+      returnValue.RetrieveCRTimeSlotDetails(timeSlot);
 
-            return returnValue;
-        }
+      return returnValue;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region RetrieveEmployeeDetails
-    [WebMethod(Description = "Retrieve employee details by employee ID.")]
-    public EmployeeDetails RetrieveEmployeeDetails(EmployeeDetails employee)
+  #region RetrieveEmployeeDetails
+  [WebMethod(Description = "Retrieve employee details by employee ID.")]
+  public EmployeeDetails RetrieveEmployeeDetails(EmployeeDetails employee)
+  {
+    try
     {
-        try
-        {
-            EmployeeDetails returnValue = new EmployeeDetails();
-            returnValue.GetRequestorDetails(employee.EmployeeID);
+      EmployeeDetails returnValue = new EmployeeDetails();
+      returnValue.GetRequestorDetails(employee.EmployeeID);
 
-            return returnValue;
-        }
+      return returnValue;
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
 
-    #region InsertAuditTrailEntry
-    [WebMethod(Description = "Insert audit trail details.")]
-    public bool InsertAuditTrailEntry(AuditTrail auditTrailDetails)
+  #region InsertAuditTrailEntry
+  [WebMethod(Description = "Insert audit trail details.")]
+  public bool InsertAuditTrailEntry(AuditTrail auditTrailDetails)
+  {
+    try
     {
-        try
-        {
-            return auditTrailDetails.InsertAuditTrailEntry();
-        }
+      return auditTrailDetails.InsertAuditTrailEntry();
+    }
 
-        catch (Exception ex)
-        {
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-            throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
-        }
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
     }
-    #endregion
+  }
+  #endregion
+
+  #region SendEmailNotification
+  [WebMethod(Description = "Insert audit trail details.")]
+  public bool SendErrorNotification(int eventID, string rawError, string machineName, string eventSource)
+  {
+    bool returnValue;
 
-    #region SendEmailNotification
-    [WebMethod(Description = "Insert audit trail details.")]
-    public bool SendErrorNotification(int eventID, string rawError, string machineName, string eventSource)
+    try
     {
-        bool returnValue;
+      if (Settings.EventEmailErrorEnabled)
+      {
+        EmailNotification errorNotification = new EmailNotification();
+        errorNotification.ConstructCommonErrorNotification(rawError, System.Diagnostics.EventLogEntryType.Error, eventID, machineName, eventSource);
+        Functions.SendEmailNotification(errorNotification);
+      }
 
-        try
-        {
-            if (Settings.EventEmailErrorEnabled)
-            {
-                EmailNotification errorNotification = new EmailNotification();
-                errorNotification.ConstructCommonErrorNotification(rawError, System.Diagnostics.EventLogEntryType.Error, eventID, machineName, eventSource);
-                Functions.SendEmailNotification(errorNotification);
-            }
-            
-            returnValue = true;
-        }
+      returnValue = true;
+    }
 
-        catch (Exception ex)
-        {
-            returnValue = false;
-        }
+    catch (Exception ex)
+    {
+      returnValue = false;
+    }
 
-        return returnValue;
+    return returnValue;
+  }
+  #endregion
+
+  #region RetrieveAccomodationRoomRecords
+  [WebMethod(Description = "Retrieve accomodation room records.")]
+  public RetrieveAccomodationRoomRecordsResult RetrieveAccomodationRoomRecords(RetrieveAccomodationRoomRecordsRequest retrieveAccomodationRoomRecordsRequest)
+  {
+    RetrieveAccomodationRoomRecordsResult returnValue = null;
+
+    try
+    {
+      return retrieveAccomodationRoomRecordsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveAccomodationRoomRecords
-    [WebMethod(Description = "Retrieve accomodation room records.")]
-    public RetrieveAccomodationRoomRecordsResult RetrieveAccomodationRoomRecords(RetrieveAccomodationRoomRecordsRequest retrieveAccomodationRoomRecordsRequest)
+    catch (Exception ex)
     {
-        RetrieveAccomodationRoomRecordsResult returnValue = null;
+      returnValue = new RetrieveAccomodationRoomRecordsResult();
 
-        try
-        {
-            return retrieveAccomodationRoomRecordsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveAccomodationRoomRecordsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveAccomodationRoomRecordDetails
+  [WebMethod(Description = "Retrieve accomodation room record details.")]
+  public RetrieveAccomodationRoomRecordDetailsResult RetrieveAccomodationRoomRecordDetails(RetrieveAccomodationRoomRecordDetailsRequest retrieveAccomodationRoomRecordDetailsRequest)
+  {
+    RetrieveAccomodationRoomRecordDetailsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveAccomodationRoomRecordDetailsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveAccomodationRoomRecordDetails
-    [WebMethod(Description = "Retrieve accomodation room record details.")]
-    public RetrieveAccomodationRoomRecordDetailsResult RetrieveAccomodationRoomRecordDetails(RetrieveAccomodationRoomRecordDetailsRequest retrieveAccomodationRoomRecordDetailsRequest)
+    catch (Exception ex)
     {
-        RetrieveAccomodationRoomRecordDetailsResult returnValue = null;
+      returnValue = new RetrieveAccomodationRoomRecordDetailsResult();
 
-        try
-        {
-            return retrieveAccomodationRoomRecordDetailsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveAccomodationRoomRecordDetailsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region ValidateAccomodationRoomRecord
+  [WebMethod(Description = "Valdiate accomodation room record.")]
+  public ValidateAccomodationRoomRecordResult ValidateAccomodationRoomRecord(ValidateAccomodationRoomRecordRequest validateAccomodationRoomRecordRequest)
+  {
+    ValidateAccomodationRoomRecordResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return validateAccomodationRoomRecordRequest.Process();
     }
-    #endregion
 
-    #region ValidateAccomodationRoomRecord
-    [WebMethod(Description = "Valdiate accomodation room record.")]
-    public ValidateAccomodationRoomRecordResult ValidateAccomodationRoomRecord(ValidateAccomodationRoomRecordRequest validateAccomodationRoomRecordRequest)
+    catch (Exception ex)
     {
-        ValidateAccomodationRoomRecordResult returnValue = null;
+      returnValue = new ValidateAccomodationRoomRecordResult();
 
-        try
-        {
-            return validateAccomodationRoomRecordRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new ValidateAccomodationRoomRecordResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region AccomodationRoomTransaction
+  [WebMethod(Description = "Add, edit, delete of accomodation room records.")]
+  public AccomodationRoomTransactionResult AccomodationRoomTransaction(AccomodationRoomTransactionRequest accomodationRoomTransactionRequest)
+  {
+    AccomodationRoomTransactionResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return accomodationRoomTransactionRequest.Process();
     }
-    #endregion
 
-    #region AccomodationRoomTransaction
-    [WebMethod(Description = "Add, edit, delete of accomodation room records.")]
-    public AccomodationRoomTransactionResult AccomodationRoomTransaction(AccomodationRoomTransactionRequest accomodationRoomTransactionRequest)
+    catch (Exception ex)
     {
-        AccomodationRoomTransactionResult returnValue = null;
+      returnValue = new AccomodationRoomTransactionResult();
 
-        try
-        {
-            return accomodationRoomTransactionRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new AccomodationRoomTransactionResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveTrainingRoomRecords
+  [WebMethod(Description = "Retrieve training room records for grid view.")]
+  public RetrieveTrainingRoomRecordsResult RetrieveTrainingRoomRecords(RetrieveTrainingRoomRecordsRequest retrieveTrainingRoomRecordsRequest)
+  {
+    RetrieveTrainingRoomRecordsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveTrainingRoomRecordsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveTrainingRoomRecords
-    [WebMethod(Description = "Retrieve training room records for grid view.")]
-    public RetrieveTrainingRoomRecordsResult RetrieveTrainingRoomRecords(RetrieveTrainingRoomRecordsRequest retrieveTrainingRoomRecordsRequest)
+    catch (Exception ex)
     {
-        RetrieveTrainingRoomRecordsResult returnValue = null;
+      returnValue = new RetrieveTrainingRoomRecordsResult();
 
-        try
-        {
-            return retrieveTrainingRoomRecordsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveTrainingRoomRecordsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveTrainingRoomRecordDetails
+  [WebMethod(Description = "Retrieve training room record details.")]
+  public RetrieveTrainingRoomRecordDetailsResult RetrieveTrainingRoomRecordDetails(RetrieveTrainingRoomRecordDetailsRequest retrieveTrainingRoomRecordDetailsRequest)
+  {
+    RetrieveTrainingRoomRecordDetailsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveTrainingRoomRecordDetailsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveTrainingRoomRecordDetails
-    [WebMethod(Description = "Retrieve training room record details.")]
-    public RetrieveTrainingRoomRecordDetailsResult RetrieveTrainingRoomRecordDetails(RetrieveTrainingRoomRecordDetailsRequest retrieveTrainingRoomRecordDetailsRequest)
+    catch (Exception ex)
     {
-        RetrieveTrainingRoomRecordDetailsResult returnValue = null;
+      returnValue = new RetrieveTrainingRoomRecordDetailsResult();
 
-        try
-        {
-            return retrieveTrainingRoomRecordDetailsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveTrainingRoomRecordDetailsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region ValidateTrainingRoomRecord
+  [WebMethod(Description = "Validate training room record.")]
+  public ValidateTrainingRoomRecordResult ValidateTrainingRoomRecord(ValidateTrainingRoomRecordRequest validateTrainingRoomRecordRequest)
+  {
+    ValidateTrainingRoomRecordResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return validateTrainingRoomRecordRequest.Process();
     }
-    #endregion
 
-    #region ValidateTrainingRoomRecord
-    [WebMethod(Description = "Validate training room record.")]
-    public ValidateTrainingRoomRecordResult ValidateTrainingRoomRecord(ValidateTrainingRoomRecordRequest validateTrainingRoomRecordRequest)
+    catch (Exception ex)
     {
-        ValidateTrainingRoomRecordResult returnValue = null;
+      returnValue = new ValidateTrainingRoomRecordResult();
 
-        try
-        {
-            return validateTrainingRoomRecordRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new ValidateTrainingRoomRecordResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region TrainingRoomTransaction
+  [WebMethod(Description = "Add, edit, delete of training room records.")]
+  public TrainingRoomTransactionResult TrainingRoomTransaction(TrainingRoomTransactionRequest trainingRoomTransactionRequest)
+  {
+    TrainingRoomTransactionResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return trainingRoomTransactionRequest.Process();
     }
-    #endregion
 
-    #region TrainingRoomTransaction
-    [WebMethod(Description = "Add, edit, delete of training room records.")]
-    public TrainingRoomTransactionResult TrainingRoomTransaction(TrainingRoomTransactionRequest trainingRoomTransactionRequest)
+    catch (Exception ex)
     {
-        TrainingRoomTransactionResult returnValue = null;
+      returnValue = new TrainingRoomTransactionResult();
 
-        try
-        {
-            return trainingRoomTransactionRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new TrainingRoomTransactionResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveTRPartitionRecordDetails
+  [WebMethod(Description = "Retrieve training room partition record details.")]
+  public RetrieveTRPartitionRecordDetailsResult RetrieveTRPartitionRecordDetails(RetrieveTRPartitionRecordDetailsRequest retrieveTRPartitionRecordDetailsRequest)
+  {
+    RetrieveTRPartitionRecordDetailsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveTRPartitionRecordDetailsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveTRPartitionRecordDetails
-    [WebMethod(Description = "Retrieve training room partition record details.")]
-    public RetrieveTRPartitionRecordDetailsResult RetrieveTRPartitionRecordDetails(RetrieveTRPartitionRecordDetailsRequest retrieveTRPartitionRecordDetailsRequest)
+    catch (Exception ex)
     {
-        RetrieveTRPartitionRecordDetailsResult returnValue = null;
+      returnValue = new RetrieveTRPartitionRecordDetailsResult();
 
-        try
-        {
-            return retrieveTRPartitionRecordDetailsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveTRPartitionRecordDetailsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveAccRoomCalendarSchedule
+  [WebMethod(Description = "Retrieve accomodation room calendar schedule.")]
+  public RetrieveAccRoomCalendarScheduleResult RetrieveAccRoomCalendarSchedule(RetrieveAccRoomCalendarScheduleRequest retrieveAccRoomCalendarScheduleRequest)
+  {
+    RetrieveAccRoomCalendarScheduleResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveAccRoomCalendarScheduleRequest.Process();
     }
-    #endregion
 
-    #region RetrieveAccRoomCalendarSchedule
-    [WebMethod(Description = "Retrieve accomodation room calendar schedule.")]
-    public RetrieveAccRoomCalendarScheduleResult RetrieveAccRoomCalendarSchedule(RetrieveAccRoomCalendarScheduleRequest retrieveAccRoomCalendarScheduleRequest)
+    catch (Exception ex)
     {
-        RetrieveAccRoomCalendarScheduleResult returnValue = null;
+      returnValue = new RetrieveAccRoomCalendarScheduleResult();
 
-        try
-        {
-            return retrieveAccRoomCalendarScheduleRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveAccRoomCalendarScheduleResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveTRCalendarSchedule
+  [WebMethod(Description = "Retrieve training room calendar schedule.")]
+  public RetrieveTRCalendarScheduleResult RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest)
+  {
+    RetrieveTRCalendarScheduleResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveTRCalendarScheduleRequest.Process();
     }
-    #endregion
 
-    #region RetrieveTRCalendarSchedule
-    [WebMethod(Description = "Retrieve training room calendar schedule.")]
-    public RetrieveTRCalendarScheduleResult RetrieveTRCalendarSchedule(RetrieveTRCalendarScheduleRequest retrieveTRCalendarScheduleRequest)
+    catch (Exception ex)
     {
-        RetrieveTRCalendarScheduleResult returnValue = null;
+      returnValue = new RetrieveTRCalendarScheduleResult();
 
-        try
-        {
-            return retrieveTRCalendarScheduleRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveTRCalendarScheduleResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region ValidateTrainingRoomScheduleAvailability
+  [WebMethod(Description = "Validate training room schedule availability.")]
+  public ValidateTrainingRoomScheduleAvailabilityResult ValidateTrainingRoomScheduleAvailability(ValidateTrainingRoomScheduleAvailabilityRequest validateTrainingRoomScheduleAvailabilityRequest)
+  {
+    ValidateTrainingRoomScheduleAvailabilityResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return validateTrainingRoomScheduleAvailabilityRequest.Process();
     }
-    #endregion
 
-    #region ValidateTrainingRoomScheduleAvailability
-    [WebMethod(Description = "Validate training room schedule availability.")]
-    public ValidateTrainingRoomScheduleAvailabilityResult ValidateTrainingRoomScheduleAvailability(ValidateTrainingRoomScheduleAvailabilityRequest validateTrainingRoomScheduleAvailabilityRequest)
+    catch (Exception ex)
     {
-        ValidateTrainingRoomScheduleAvailabilityResult returnValue = null;
+      returnValue = new ValidateTrainingRoomScheduleAvailabilityResult();
 
-        try
-        {
-            return validateTrainingRoomScheduleAvailabilityRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new ValidateTrainingRoomScheduleAvailabilityResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region ValidateAccomodationRoomScheduleAvailability
+  [WebMethod(Description = "Validate accomodation room schedule availability.")]
+  public ValidateAccomodationRoomScheduleAvailabilityResult ValidateAccomodationRoomScheduleAvailability(ValidateAccomodationRoomScheduleAvailabilityRequest validateAccomodationRoomScheduleAvailabilityRequest)
+  {
+    ValidateAccomodationRoomScheduleAvailabilityResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return validateAccomodationRoomScheduleAvailabilityRequest.Process();
     }
-    #endregion
 
-    #region ValidateAccomodationRoomScheduleAvailability
-    [WebMethod(Description = "Validate accomodation room schedule availability.")]
-    public ValidateAccomodationRoomScheduleAvailabilityResult ValidateAccomodationRoomScheduleAvailability(ValidateAccomodationRoomScheduleAvailabilityRequest validateAccomodationRoomScheduleAvailabilityRequest)
+    catch (Exception ex)
     {
-        ValidateAccomodationRoomScheduleAvailabilityResult returnValue = null;
+      returnValue = new ValidateAccomodationRoomScheduleAvailabilityResult();
 
-        try
-        {
-            return validateAccomodationRoomScheduleAvailabilityRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new ValidateAccomodationRoomScheduleAvailabilityResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region ValidateSummaryScheduleAvailability
+  [WebMethod(Description = "Validate accomodation room schedule availability.")]
+  public ValidateSummaryScheduleAvailabilityResult ValidateSummaryScheduleAvailability(ValidateSummaryScheduleAvailabilityRequest validateSummaryScheduleAvailabilityRequest)
+  {
+    ValidateSummaryScheduleAvailabilityResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return validateSummaryScheduleAvailabilityRequest.Process();
     }
-    #endregion
 
-    #region ValidateSummaryScheduleAvailability
-    [WebMethod(Description = "Validate accomodation room schedule availability.")]
-    public ValidateSummaryScheduleAvailabilityResult ValidateSummaryScheduleAvailability(ValidateSummaryScheduleAvailabilityRequest validateSummaryScheduleAvailabilityRequest)
+    catch (Exception ex)
     {
-        ValidateSummaryScheduleAvailabilityResult returnValue = null;
+      returnValue = new ValidateSummaryScheduleAvailabilityResult();
 
-        try
-        {
-            return validateSummaryScheduleAvailabilityRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new ValidateSummaryScheduleAvailabilityResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveLastGeneratedCCRefNo
+  [WebMethod(Description = "Retrieve last generated reference number for convention center.")]
+  public RetrieveLastGeneratedCCRefNoResult RetrieveLastGeneratedCCRefNo(RetrieveLastGeneratedCCRefNoRequest retrieveLastGeneratedCCRefNoRequest)
+  {
+    RetrieveLastGeneratedCCRefNoResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveLastGeneratedCCRefNoRequest.Process();
     }
-    #endregion
 
-    #region RetrieveLastGeneratedCCRefNo
-    [WebMethod(Description = "Retrieve last generated reference number for convention center.")]
-    public RetrieveLastGeneratedCCRefNoResult RetrieveLastGeneratedCCRefNo(RetrieveLastGeneratedCCRefNoRequest retrieveLastGeneratedCCRefNoRequest)
+    catch (Exception ex)
     {
-        RetrieveLastGeneratedCCRefNoResult returnValue = null;
+      returnValue = new RetrieveLastGeneratedCCRefNoResult();
 
-        try
-        {
-            return retrieveLastGeneratedCCRefNoRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveLastGeneratedCCRefNoResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region InsertNewCCRequest
+  [WebMethod(Description = "Insert new convention center reservation request.")]
+  public InsertNewCCRequestResult InsertNewCCRequest(InsertNewCCRequestRequest insertNewCCRequestRequest)
+  {
+    InsertNewCCRequestResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return insertNewCCRequestRequest.Process();
     }
-    #endregion
 
-    #region InsertNewCCRequest
-    [WebMethod(Description = "Insert new convention center reservation request.")]
-    public InsertNewCCRequestResult InsertNewCCRequest(InsertNewCCRequestRequest insertNewCCRequestRequest)
+    catch (Exception ex)
     {
-        InsertNewCCRequestResult returnValue = null;
+      returnValue = new InsertNewCCRequestResult();
 
-        try
-        {
-            return insertNewCCRequestRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new InsertNewCCRequestResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region CancelCCRequest
+  [WebMethod(Description = "Cancel convention center reservation request.")]
+  public CancelCCRequestResult CancelCCRequest(CancelCCRequestRequest cancelCCRequestRequest)
+  {
+    CancelCCRequestResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return cancelCCRequestRequest.Process();
     }
-    #endregion
 
-    #region CancelCCRequest
-    [WebMethod(Description = "Cancel convention center reservation request.")]
-    public CancelCCRequestResult CancelCCRequest(CancelCCRequestRequest cancelCCRequestRequest)
+    catch (Exception ex)
     {
-        CancelCCRequestResult returnValue = null;
+      returnValue = new CancelCCRequestResult();
 
-        try
-        {
-            return cancelCCRequestRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new CancelCCRequestResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestRecordsByStatus
+  [WebMethod(Description = "Retrieve convention center request records by status.")]
+  public RetrieveCCRequestRecordsByStatusResult RetrieveCCRequestRecordsByStatus(RetrieveCCRequestRecordsByStatusRequest retrieveCCRequestRecordsByStatusRequest)
+  {
+    RetrieveCCRequestRecordsByStatusResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestRecordsByStatusRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestRecordsByStatus
-    [WebMethod(Description = "Retrieve convention center request records by status.")]
-    public RetrieveCCRequestRecordsByStatusResult RetrieveCCRequestRecordsByStatus(RetrieveCCRequestRecordsByStatusRequest retrieveCCRequestRecordsByStatusRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestRecordsByStatusResult returnValue = null;
+      returnValue = new RetrieveCCRequestRecordsByStatusResult();
 
-        try
-        {
-            return retrieveCCRequestRecordsByStatusRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestRecordsByStatusResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestDetails
+  [WebMethod(Description = "Retrieve convention center request details.")]
+  public RetrieveCCRequestDetailsResult RetrieveCCRequestDetails(RetrieveCCRequestDetailsRequest retrieveCCRequestDetailsRequest)
+  {
+    RetrieveCCRequestDetailsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestDetailsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestDetails
-    [WebMethod(Description = "Retrieve convention center request details.")]
-    public RetrieveCCRequestDetailsResult RetrieveCCRequestDetails(RetrieveCCRequestDetailsRequest retrieveCCRequestDetailsRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestDetailsResult returnValue = null;
+      returnValue = new RetrieveCCRequestDetailsResult();
 
-        try
-        {
-            return retrieveCCRequestDetailsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestDetailsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestRecordsByRequestor
+  [WebMethod(Description = "Retrieve convention center request records by requestor.")]
+  public RetrieveCCRequestRecordsByRequestorResult RetrieveCCRequestRecordsByRequestor(RetrieveCCRequestRecordsByRequestorRequest retrieveCCRequestRecordsByRequestorRequest)
+  {
+    RetrieveCCRequestRecordsByRequestorResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestRecordsByRequestorRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestRecordsByRequestor
-    [WebMethod(Description = "Retrieve convention center request records by requestor.")]
-    public RetrieveCCRequestRecordsByRequestorResult RetrieveCCRequestRecordsByRequestor(RetrieveCCRequestRecordsByRequestorRequest retrieveCCRequestRecordsByRequestorRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestRecordsByRequestorResult returnValue = null;
+      returnValue = new RetrieveCCRequestRecordsByRequestorResult();
 
-        try
-        {
-            return retrieveCCRequestRecordsByRequestorRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestRecordsByRequestorResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestDetailsByRequestor
+  [WebMethod(Description = "Retrieve convention center request records by requestor.")]
+  public RetrieveCCRequestDetailsByRequestorResult RetrieveCCRequestDetailsByRequestor(RetrieveCCRequestDetailsByRequestorRequest retrieveCCRequestDetailsByRequestorRequest)
+  {
+    RetrieveCCRequestDetailsByRequestorResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestDetailsByRequestorRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestDetailsByRequestor
-    [WebMethod(Description = "Retrieve convention center request records by requestor.")]
-    public RetrieveCCRequestDetailsByRequestorResult RetrieveCCRequestDetailsByRequestor(RetrieveCCRequestDetailsByRequestorRequest retrieveCCRequestDetailsByRequestorRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestDetailsByRequestorResult returnValue = null;
+      returnValue = new RetrieveCCRequestDetailsByRequestorResult();
 
-        try
-        {
-            return retrieveCCRequestDetailsByRequestorRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestDetailsByRequestorResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestHistoryRecords
+  [WebMethod(Description = "Retrieve convention center request status history.")]
+  public RetrieveCCRequestHistoryRecordsResult RetrieveCCRequestHistoryRecords(RetrieveCCRequestHistoryRecordsRequest retrieveCCRequestHistoryRecordsRequest)
+  {
+    RetrieveCCRequestHistoryRecordsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestHistoryRecordsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestHistoryRecords
-    [WebMethod(Description = "Retrieve convention center request status history.")]
-    public RetrieveCCRequestHistoryRecordsResult RetrieveCCRequestHistoryRecords(RetrieveCCRequestHistoryRecordsRequest retrieveCCRequestHistoryRecordsRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestHistoryRecordsResult returnValue = null;
+      returnValue = new RetrieveCCRequestHistoryRecordsResult();
 
-        try
-        {
-            return retrieveCCRequestHistoryRecordsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestHistoryRecordsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestAttachment
+  [WebMethod(Description = "Retrieve convention center request attachment.")]
+  public RetrieveCCRequestAttachmentResult RetrieveCCRequestAttachment(RetrieveCCRequestAttachmentRequest retrieveCCRequestAttachmentRequest)
+  {
+    RetrieveCCRequestAttachmentResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestAttachmentRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestAttachment
-    [WebMethod(Description = "Retrieve convention center request attachment.")]
-    public RetrieveCCRequestAttachmentResult RetrieveCCRequestAttachment(RetrieveCCRequestAttachmentRequest retrieveCCRequestAttachmentRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestAttachmentResult returnValue = null;
+      returnValue = new RetrieveCCRequestAttachmentResult();
 
-        try
-        {
-            return retrieveCCRequestAttachmentRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestAttachmentResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestAttachmentByStatus
+  [WebMethod(Description = "Retrieve convention center request attachment by status.")]
+  public RetrieveCCRequestAttachmentByStatusResult RetrieveCCRequestAttachmentByStatus(RetrieveCCRequestAttachmentByStatusRequest retrieveCCRequestAttachmentByStatusRequest)
+  {
+    RetrieveCCRequestAttachmentByStatusResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestAttachmentByStatusRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestAttachmentByStatus
-    [WebMethod(Description = "Retrieve convention center request attachment by status.")]
-    public RetrieveCCRequestAttachmentByStatusResult RetrieveCCRequestAttachmentByStatus(RetrieveCCRequestAttachmentByStatusRequest retrieveCCRequestAttachmentByStatusRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestAttachmentByStatusResult returnValue = null;
+      returnValue = new RetrieveCCRequestAttachmentByStatusResult();
 
-        try
-        {
-            return retrieveCCRequestAttachmentByStatusRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestAttachmentByStatusResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveTrainingRoomRequestReport
+  [WebMethod(Description = "Retrieve training room request report.")]
+  public RetrieveTrainingRoomRequestReportResult RetrieveTrainingRoomRequestReport(RetrieveTrainingRoomRequestReportRequest retrieveTrainingRoomRequestReportRequest)
+  {
+    RetrieveTrainingRoomRequestReportResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveTrainingRoomRequestReportRequest.Process();
     }
-    #endregion
 
-    #region RetrieveTrainingRoomRequestReport
-    [WebMethod(Description = "Retrieve training room request report.")]
-    public RetrieveTrainingRoomRequestReportResult RetrieveTrainingRoomRequestReport(RetrieveTrainingRoomRequestReportRequest retrieveTrainingRoomRequestReportRequest)
+    catch (Exception ex)
     {
-        RetrieveTrainingRoomRequestReportResult returnValue = null;
+      returnValue = new RetrieveTrainingRoomRequestReportResult();
 
-        try
-        {
-            return retrieveTrainingRoomRequestReportRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveTrainingRoomRequestReportResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveAccomodationRoomRequestReport
+  [WebMethod(Description = "Retrieve accomodation room request report.")]
+  public RetrieveAccomodationRoomRequestReportResult RetrieveAccomodationRoomRequestReport(RetrieveAccomodationRoomRequestReportRequest retrieveAccomodationRoomRequestReportRequest)
+  {
+    RetrieveAccomodationRoomRequestReportResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveAccomodationRoomRequestReportRequest.Process();
     }
-    #endregion
 
-    #region RetrieveAccomodationRoomRequestReport
-    [WebMethod(Description = "Retrieve accomodation room request report.")]
-    public RetrieveAccomodationRoomRequestReportResult RetrieveAccomodationRoomRequestReport(RetrieveAccomodationRoomRequestReportRequest retrieveAccomodationRoomRequestReportRequest)
+    catch (Exception ex)
     {
-        RetrieveAccomodationRoomRequestReportResult returnValue = null;
+      returnValue = new RetrieveAccomodationRoomRequestReportResult();
 
-        try
-        {
-            return retrieveAccomodationRoomRequestReportRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveAccomodationRoomRequestReportResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestRecordsBySOAStatus
+  [WebMethod(Description = "Retrieve convention center request records by SOA status.")]
+  public RetrieveCCRequestRecordsBySOAStatusResult RetrieveCCRequestRecordsBySOAStatus(RetrieveCCRequestRecordsBySOAStatusRequest retrieveCCRequestRecordsBySOAStatusRequest)
+  {
+    RetrieveCCRequestRecordsBySOAStatusResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestRecordsBySOAStatusRequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestRecordsBySOAStatus
-    [WebMethod(Description = "Retrieve convention center request records by SOA status.")]
-    public RetrieveCCRequestRecordsBySOAStatusResult RetrieveCCRequestRecordsBySOAStatus(RetrieveCCRequestRecordsBySOAStatusRequest retrieveCCRequestRecordsBySOAStatusRequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestRecordsBySOAStatusResult returnValue = null;
+      returnValue = new RetrieveCCRequestRecordsBySOAStatusResult();
 
-        try
-        {
-            return retrieveCCRequestRecordsBySOAStatusRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestRecordsBySOAStatusResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveCCRequestRecordsApprovedSOA
+  [WebMethod(Description = "Retrieve approved SOA convention center request records.")]
+  public RetrieveCCRequestRecordsApprovedSOAResult RetrieveCCRequestRecordsApprovedSOA(RetrieveCCRequestRecordsApprovedSOARequest retrieveCCRequestRecordsApprovedSOARequest)
+  {
+    RetrieveCCRequestRecordsApprovedSOAResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveCCRequestRecordsApprovedSOARequest.Process();
     }
-    #endregion
 
-    #region RetrieveCCRequestRecordsApprovedSOA
-    [WebMethod(Description = "Retrieve approved SOA convention center request records.")]
-    public RetrieveCCRequestRecordsApprovedSOAResult RetrieveCCRequestRecordsApprovedSOA(RetrieveCCRequestRecordsApprovedSOARequest retrieveCCRequestRecordsApprovedSOARequest)
+    catch (Exception ex)
     {
-        RetrieveCCRequestRecordsApprovedSOAResult returnValue = null;
+      returnValue = new RetrieveCCRequestRecordsApprovedSOAResult();
 
-        try
-        {
-            return retrieveCCRequestRecordsApprovedSOARequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveCCRequestRecordsApprovedSOAResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveSOAHistoryRecords
+  [WebMethod(Description = "Retrieve convention center request SOA status history.")]
+  public RetrieveSOAHistoryRecordsResult RetrieveSOAHistoryRecords(RetrieveSOAHistoryRecordsRequest retrieveSOAHistoryRecordsRequest)
+  {
+    RetrieveSOAHistoryRecordsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveSOAHistoryRecordsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveSOAHistoryRecords
-    [WebMethod(Description = "Retrieve convention center request SOA status history.")]
-    public RetrieveSOAHistoryRecordsResult RetrieveSOAHistoryRecords(RetrieveSOAHistoryRecordsRequest retrieveSOAHistoryRecordsRequest)
+    catch (Exception ex)
     {
-        RetrieveSOAHistoryRecordsResult returnValue = null;
+      returnValue = new RetrieveSOAHistoryRecordsResult();
 
-        try
-        {
-            return retrieveSOAHistoryRecordsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveSOAHistoryRecordsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveSOADetails
+  [WebMethod(Description = "Retrieve request SOA details.")]
+  public RetrieveSOADetailsResult RetrieveSOADetails(RetrieveSOADetailsRequest retrieveSOADetailsRequest)
+  {
+    RetrieveSOADetailsResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveSOADetailsRequest.Process();
     }
-    #endregion
 
-    #region RetrieveSOADetails
-    [WebMethod(Description = "Retrieve request SOA details.")]
-    public RetrieveSOADetailsResult RetrieveSOADetails(RetrieveSOADetailsRequest retrieveSOADetailsRequest)
+    catch (Exception ex)
     {
-        RetrieveSOADetailsResult returnValue = null;
+      returnValue = new RetrieveSOADetailsResult();
 
-        try
-        {
-            return retrieveSOADetailsRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveSOADetailsResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region OtherChargeTransaction
+  [WebMethod(Description = "Add or delete Other Charge records.")]
+  public OtherChargeTransactionResult OtherChargeTransaction(OtherChargeTransactionRequest otherChargeTransactionRequest)
+  {
+    OtherChargeTransactionResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return otherChargeTransactionRequest.Process();
     }
-    #endregion
 
-    #region OtherChargeTransaction
-    [WebMethod(Description = "Add or delete Other Charge records.")]
-    public OtherChargeTransactionResult OtherChargeTransaction(OtherChargeTransactionRequest otherChargeTransactionRequest)
+    catch (Exception ex)
     {
-        OtherChargeTransactionResult returnValue = null;
+      returnValue = new OtherChargeTransactionResult();
 
-        try
-        {
-            return otherChargeTransactionRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new OtherChargeTransactionResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region UpdateSOAStatus
+  [WebMethod(Description = "Update SOA status.")]
+  public UpdateSOAStatusResult UpdateSOAStatus(UpdateSOAStatusRequest updateSOAStatusRequest)
+  {
+    UpdateSOAStatusResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return updateSOAStatusRequest.Process();
     }
-    #endregion
 
-    #region UpdateSOAStatus
-    [WebMethod(Description = "Update SOA status.")]
-    public UpdateSOAStatusResult UpdateSOAStatus(UpdateSOAStatusRequest updateSOAStatusRequest)
+    catch (Exception ex)
     {
-        UpdateSOAStatusResult returnValue = null;
+      returnValue = new UpdateSOAStatusResult();
 
-        try
-        {
-            return updateSOAStatusRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new UpdateSOAStatusResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region RetrieveSOAReport
+  [WebMethod(Description = "Retrieve SOA summary report.")]
+  public RetrieveSOAReportResult RetrieveSOAReport(RetrieveSOAReportRequest retrieveSOAReportRequest)
+  {
+    RetrieveSOAReportResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return retrieveSOAReportRequest.Process();
     }
-    #endregion
 
-    #region RetrieveSOAReport
-    [WebMethod(Description = "Retrieve SOA summary report.")]
-    public RetrieveSOAReportResult RetrieveSOAReport(RetrieveSOAReportRequest retrieveSOAReportRequest)
+    catch (Exception ex)
     {
-        RetrieveSOAReportResult returnValue = null;
+      returnValue = new RetrieveSOAReportResult();
 
-        try
-        {
-            return retrieveSOAReportRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new RetrieveSOAReportResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region TrainingRoomScheduleMappingTransaction
+  [WebMethod(Description = "Insert or delete training room schedule mapping records.")]
+  public TrainingRoomScheduleMappingTransactionResult TrainingRoomScheduleMappingTransaction(TrainingRoomScheduleMappingTransactionRequest trainingRoomScheduleMappingTransactionRequest)
+  {
+    TrainingRoomScheduleMappingTransactionResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return trainingRoomScheduleMappingTransactionRequest.Process();
     }
-    #endregion
 
-    #region TrainingRoomScheduleMappingTransaction
-    [WebMethod(Description = "Insert or delete training room schedule mapping records.")]
-    public TrainingRoomScheduleMappingTransactionResult TrainingRoomScheduleMappingTransaction(TrainingRoomScheduleMappingTransactionRequest trainingRoomScheduleMappingTransactionRequest)
+    catch (Exception ex)
     {
-        TrainingRoomScheduleMappingTransactionResult returnValue = null;
+      returnValue = new TrainingRoomScheduleMappingTransactionResult();
 
-        try
-        {
-            return trainingRoomScheduleMappingTransactionRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new TrainingRoomScheduleMappingTransactionResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+      return returnValue;
+    }
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
+  #region AccomodationRoomScheduleMappingTransaction
+  [WebMethod(Description = "Insert or delete accomodation room schedule mapping records.")]
+  public AccomodationRoomScheduleMappingTransactionResult AccomodationRoomScheduleMappingTransaction(AccomodationRoomScheduleMappingTransactionRequest accomodationRoomScheduleMappingTransactionRequest)
+  {
+    AccomodationRoomScheduleMappingTransactionResult returnValue = null;
 
-            return returnValue;
-        }
+    try
+    {
+      return accomodationRoomScheduleMappingTransactionRequest.Process();
     }
-    #endregion
 
-    #region AccomodationRoomScheduleMappingTransaction
-    [WebMethod(Description = "Insert or delete accomodation room schedule mapping records.")]
-    public AccomodationRoomScheduleMappingTransactionResult AccomodationRoomScheduleMappingTransaction(AccomodationRoomScheduleMappingTransactionRequest accomodationRoomScheduleMappingTransactionRequest)
+    catch (Exception ex)
     {
-        AccomodationRoomScheduleMappingTransactionResult returnValue = null;
+      returnValue = new AccomodationRoomScheduleMappingTransactionResult();
 
-        try
-        {
-            return accomodationRoomScheduleMappingTransactionRequest.Process();
-        }
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
-        catch (Exception ex)
-        {
-            returnValue = new AccomodationRoomScheduleMappingTransactionResult();
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
+
+      return returnValue;
+    }
+  }
+  #endregion
 
-            SystemEventLog eventLog = new SystemEventLog();
-            eventLog.WrapServerError(ex.ToString());
+  #region Codebox
+  [WebMethod(Description = "Displays Code Box details.")]
+  public void Codebox()
+  {
+    ResponseWrite(String.Format("{0}\n\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n{10}\n{11}"
+                                  , "Code Box"
+                                  , "OS                       :Windows"
+                                  , "IDE                      :Microsoft Visual Studio 2010"
+                                  , "Language                 :C#"
+                                  , "Framework                :.NET Framework 2.0"
+                                  , "Application Name         :iReserveWS"
+                                  , "Solution Name            :iReserve"
+                                  , "Current Version          :4.0"
+                                  , "Last Update Date         :August 31, 2017"
+                                  , "Team Code                :ASD"
+                                  , "Programmer's Intitial    :KAE"
+                                  , "Remarks:                 :Antipolo Convention Center Module"));
+  }
+  #endregion
 
-            returnValue.LogID = eventLog.EventID;
-            returnValue.Message = eventLog.Message;
-            returnValue.ResultStatus = ResultStatus.Error;
 
-            return returnValue;
-        }
+  #region RetrieveChargedCompany
+  [WebMethod(Description = "Retrieve charged company")]
+  public List<ChargedCompany> RetrieveChargedCompany()
+  {
+    try
+    {
+      ChargedCompany chargedCompany = new ChargedCompany();
+      return chargedCompany.RetrieveChargedCompany();
+    }
+
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
+
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
+    }
+  }
+  #endregion
+  #region RetrieveCostCenterByCompanyChardgedId
+  [WebMethod(Description = "Retrieve cost center by company charged id")]
+  public List<ChargedCompanyCostCenter> RetrieveCostCenterByCompanyChardgedId(int chargedCompanyId)
+  {
+    try
+    {
+      ChargedCompanyCostCenter chargedCompanyCostCenter = new ChargedCompanyCostCenter();
+      return chargedCompanyCostCenter.RetrieveCostCenterByChargedCompanyId(chargedCompanyId);
+    }
+
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
+
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
+    }
+  }
+  #endregion
+
+  #region RetrieveCancellationFee
+  [WebMethod(Description = "Retrieve Cancellation Fee")]
+  public CancellationFee RetrieveCancellationFee()
+  {
+    try
+    {
+      CancellationFee cancellationFee = new CancellationFee();
+      return cancellationFee.RetrieveCancellationFee();
+    }
+    catch (Exception ex)
+    {
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
+
+      throw new SoapException(eventLog.Message, SoapException.ServerFaultCode, ex);
+    }
+  }
+  #endregion
+
+  #region UpdateCCRequestPercentDiscount
+  [WebMethod(Description = "Update CCRequest Percent Discount")]
+  public UpdateCCRequestPercentDiscountResult UpdateCCRequestPercentDiscount(UpdateCCRequestPercentDiscountRequest updateCCRequestPercentDiscountRequest)
+  {
+    UpdateCCRequestPercentDiscountResult returnValue = null;
+
+    try
+    {
+      return updateCCRequestPercentDiscountRequest.Process();
     }
-    #endregion
-
-    #region Codebox
-    [WebMethod(Description = "Displays Code Box details.")]
-    public void Codebox()
-    {
-        ResponseWrite(String.Format("{0}\n\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n{10}\n{11}"
-                                      , "Code Box"
-                                      , "OS                       :Windows"
-                                      , "IDE                      :Microsoft Visual Studio 2010"
-                                      , "Language                 :C#"
-                                      , "Framework                :.NET Framework 2.0"
-                                      , "Application Name         :iReserveWS"
-                                      , "Solution Name            :iReserve"
-                                      , "Current Version          :4.0"
-                                      , "Last Update Date         :August 31, 2017"
-                                      , "Team Code                :ASD"
-                                      , "Programmer's Intitial    :KAE"
-                                      , "Remarks:                 :Antipolo Convention Center Module"));
-    }
-    #endregion
-
-    #region MethodName
-    //[WebMethod(Description = "")]
-    //public String MethodName(String s)
-    //{
-    //    return s;
-    //}
-    #endregion
+
+    catch (Exception ex)
+    {
+      returnValue = new UpdateCCRequestPercentDiscountResult();
+
+      SystemEventLog eventLog = new SystemEventLog();
+      eventLog.WrapServerError(ex.ToString());
 
+      returnValue.LogID = eventLog.EventID;
+      returnValue.Message = eventLog.Message;
+      returnValue.ResultStatus = ResultStatus.Error;
+
+      return returnValue;
+    }
+  }
+  #endregion
 }

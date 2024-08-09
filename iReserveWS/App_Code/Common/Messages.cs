@@ -54,4 +54,7 @@ internal static class Messages
     internal const string AccomodationRoomScheduleMappingTransactionSuccessful = "Accomodation room schedule mapping transaction successful.";
     
     internal const string ErrorEmailSubject = "[{0}] {1} - {2}";
+
+  internal const string UpdateCCRequestPercentDiscountSuccessfull = "Success updated Convention Request Discount";
+  internal const string UpdateCCRequestPercentDiscountFail = "Failed to update Convention Request Discount";
 }

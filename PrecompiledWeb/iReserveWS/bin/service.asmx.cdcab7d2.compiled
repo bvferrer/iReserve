@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/iReserveWS/Service.asmx" hash="ffffffffcc4c8f52" filehash="3e92670330d9" flags="130000" assembly="App_Code" type="Service">
+    <filedeps>
+        <filedep name="/iReserveWS/Service.asmx" />
+    </filedeps>
+</preserve>

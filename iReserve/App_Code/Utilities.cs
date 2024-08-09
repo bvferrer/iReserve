@@ -8,37 +8,44 @@ using System.Web.UI;
 /// </summary>
 public class Utilities
 {
-	public Utilities()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+  public Utilities()
+  {
+    //
+    // TODO: Add constructor logic here
+    //
+  }
 
-    public static void MyMessageBox(string smessage)
+  public static void MessageBox(string smessage)
+  {
+    Page p = (Page)HttpContext.Current.CurrentHandler;
+
+    ScriptManager.RegisterClientScriptBlock(p, typeof(Page), "Message", string.Format("alert('{0}');", smessage), true);
+  }
+
+  public static void MyMessageBox(string smessage)
+  {
+    Page p = (Page)HttpContext.Current.CurrentHandler;
+
+    ScriptManager.RegisterClientScriptBlock(p, typeof(Page), "Message", string.Format("alert('{0}'); window.location.href= window.location;", smessage), true);
+  }
+
+  public static void MyMessageBoxWithHomeRedirect(string smessage)
+  {
+    Page p = (Page)HttpContext.Current.CurrentHandler;
+
+    ScriptManager.RegisterClientScriptBlock(p, typeof(Page), "Message", string.Format("alert('{0}'); window.location.href = 'Default.aspx';", smessage), true);
+  }
+
+  public static string FormatURLToBase64(string urlValue)
+  {
+    urlValue = urlValue.Replace(" ", "+");
+
+    int mod4 = urlValue.Length % 4;
+    if (mod4 > 0)
     {
-        Page p = (Page)HttpContext.Current.CurrentHandler;
-
-        ScriptManager.RegisterClientScriptBlock(p, typeof(Page), "Message", string.Format("alert('{0}'); window.location.href= window.location;", smessage), true);
+      urlValue += new string('=', 4 - mod4);
     }
 
-    public static void MyMessageBoxWithHomeRedirect(string smessage)
-    {
-        Page p = (Page)HttpContext.Current.CurrentHandler;
-
-        ScriptManager.RegisterClientScriptBlock(p, typeof(Page), "Message", string.Format("alert('{0}'); window.location.href = 'Default.aspx';", smessage), true);
-    }
-
-    public static string FormatURLToBase64(string urlValue)
-    {
-        urlValue = urlValue.Replace(" ", "+");
-
-        int mod4 = urlValue.Length % 4;
-        if (mod4 > 0)
-        {
-            urlValue += new string('=', 4 - mod4);
-        }
-
-        return urlValue;
-    }
+    return urlValue;
+  }
 }

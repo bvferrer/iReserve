@@ -9,67 +9,81 @@ using System.Data.SqlClient;
 /// </summary>
 public class CancelCCRequestRequest
 {
-	public CancelCCRequestRequest()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-    }
+  public CancelCCRequestRequest()
+  {
+    //
+    // TODO: Add constructor logic here
+    //
+  }
 
-    private string _ccRequestReferenceNo;
+  private string _ccRequestReferenceNo;
 
-    public string CCRequestReferenceNo
+  public string CCRequestReferenceNo
+  {
+    get { return _ccRequestReferenceNo; }
+    set { _ccRequestReferenceNo = value; }
+  }
+
+  private int _statusCode;
+
+  public int StatusCode
+  {
+    get { return _statusCode; }
+    set { _statusCode = value; }
+  }
+
+  private CCRequestHistory _ccRequestHistory;
+
+  public CCRequestHistory CCRequestHistory
+  {
+    get { return _ccRequestHistory; }
+    set { _ccRequestHistory = value; }
+  }
+
+  private CancellationFee _cancellationFee;
+  public CancellationFee CancellationFee
+  {
+    get { return _cancellationFee; }
+    set { _cancellationFee = value; }
+  }
+
+  public CancelCCRequestResult Process()
+  {
+    CancelCCRequestResult returnValue = new CancelCCRequestResult();
+
+    using (TransactionScope transactionScope = new TransactionScope())
     {
-        get { return _ccRequestReferenceNo; }
-        set { _ccRequestReferenceNo = value; }
+      using (SqlConnection sqlConnection = new SqlConnection(Settings.iReserveConnectionStringWriter))
+      {
+        sqlConnection.Open();
+
+        CCRequest request = new CCRequest();
+        request.UpdateCCRequestStatus(sqlConnection, this.CCRequestReferenceNo, this.StatusCode);
+        this.CCRequestHistory.InsertCCRequestHistory(sqlConnection);
+
+        CCRequest cCRequest = new CCRequest();
+        cCRequest.RetrieveCCRequestDetails(this.CCRequestReferenceNo);
+
+
+        if ((cCRequest.StartDate - DateTime.Now).Days <= 3)
+          this.CancellationFee.InsertCCRequestCancellation(this.CCRequestReferenceNo);
+
+        TrainingRoomScheduleMapping trainingRoomScheduleMapping = new TrainingRoomScheduleMapping();
+        trainingRoomScheduleMapping.CancelTrainingRoomScheduleMapping(sqlConnection, this.CCRequestReferenceNo);
+
+        AccomodationRoomScheduleMapping accomodationRoomScheduleMapping = new AccomodationRoomScheduleMapping();
+        accomodationRoomScheduleMapping.CancelAccomodationRoomScheduleMapping(sqlConnection, this.CCRequestReferenceNo);
+
+        EmailNotification emailNotification = new EmailNotification();
+        emailNotification.SendCCEmailNotification(this.CCRequestReferenceNo);
+      }
+
+      transactionScope.Complete();
     }
 
-    private int _statusCode;
+    returnValue.ResultStatus = ResultStatus.Successful;
+    returnValue.Message = Messages.CancelCCRequestSuccessful;
 
-    public int StatusCode
-    {
-        get { return _statusCode; }
-        set { _statusCode = value; }
-    }
-
-    private CCRequestHistory _ccRequestHistory;
-
-    public CCRequestHistory CCRequestHistory
-    {
-        get { return _ccRequestHistory; }
-        set { _ccRequestHistory = value; }
-    }
-
-    public CancelCCRequestResult Process()
-    {
-        CancelCCRequestResult returnValue = new CancelCCRequestResult();
-
-        using (TransactionScope transactionScope = new TransactionScope())
-        {
-            using (SqlConnection sqlConnection = new SqlConnection(Settings.iReserveConnectionStringWriter))
-            {
-                sqlConnection.Open();
-
-                CCRequest request = new CCRequest();
-                request.UpdateCCRequestStatus(sqlConnection, this.CCRequestReferenceNo, this.StatusCode);
-                this.CCRequestHistory.InsertCCRequestHistory(sqlConnection);
-
-                TrainingRoomScheduleMapping trainingRoomScheduleMapping = new TrainingRoomScheduleMapping();
-                trainingRoomScheduleMapping.CancelTrainingRoomScheduleMapping(sqlConnection, this.CCRequestReferenceNo);
-
-                AccomodationRoomScheduleMapping accomodationRoomScheduleMapping = new AccomodationRoomScheduleMapping();
-                accomodationRoomScheduleMapping.CancelAccomodationRoomScheduleMapping(sqlConnection, this.CCRequestReferenceNo);
-
-                EmailNotification emailNotification = new EmailNotification();
-                emailNotification.SendCCEmailNotification(this.CCRequestReferenceNo);
-            }
-
-            transactionScope.Complete();
-        }
-
-        returnValue.ResultStatus = ResultStatus.Successful;
-        returnValue.Message = Messages.CancelCCRequestSuccessful;
-
-        return returnValue;
-    }
+    return returnValue;
+  }
 }

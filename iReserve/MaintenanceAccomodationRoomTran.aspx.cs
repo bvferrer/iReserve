@@ -35,7 +35,7 @@ public partial class MaintenanceAccomodationRoomTran : System.Web.UI.Page
 
         if (profileName != "")
         {
-            if (profileName != "Convention Center Administrator")
+            if (profileName != "Convention Center Administrator" && profileName != "SOA Approver")
             {
                 Response.Write("<script language=javascript> alert('You are not allowed to access this page. Please click on the Ok Button to go back to the Home Page.'); window.location.href ='Home.aspx';</script>");
             }

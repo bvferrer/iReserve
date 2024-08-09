@@ -23,5 +23,18 @@
       <siteMapNode url="~\ReportAccomodationRoomMain.aspx" title="Accomodation Room" description="" resourceKey="Convention Center Administrator"/>
       <siteMapNode url="~\ReportSOAMain.aspx" title="Statement of Account" description="" resourceKey="Convention Center Administrator"/>
     </siteMapNode>
+    <!--SOA Approver-->
+    <siteMapNode url="" title="Reports" description="" resourceKey="SOA Approver">
+      <siteMapNode url="~\ReportTrainingRoomMain.aspx?type=ReportTrainingRoomMain" title="Training Room" description="" resourceKey="SOA Approver"/>
+      <siteMapNode url="~\ReportAccomodationRoomMain.aspx?type=ReportAccomodationRoomMain" title="Accomodation Room" description="" resourceKey="SOA Approver"/>
+      <siteMapNode url="~\ReportSOAMain.aspx?type=ReportSOAMain" title="Statement of Account" description="" resourceKey="SOA Approver"/>
+    </siteMapNode>
+    <siteMapNode url="" title="File Maintenance" description="" resourceKey="SOA Approver">
+      <siteMapNode url="~\MaintenanceLocation.aspx?type=MaintenanceLocation" title="Location" description="" />
+      <siteMapNode url="~\MaintenanceConferenceRoom.aspx?type=MaintenanceLocation" title="Conference Room" description="" resourceKey="SOA Approver"/>
+      <siteMapNode url="~\MaintenanceTrainingRoom.aspx?type=MaintenanceTrainingRoom" title="Training Room" description="" resourceKey="SOA Approver"/>
+      <siteMapNode url="~\MaintenanceAccomodationRoom.aspx?type=MaintenanceAccomodationRoom" title="Accomodation Room" description="" resourceKey="SOA Approver"/>
+    </siteMapNode>
+    
   </siteMapNode>
 </siteMap>

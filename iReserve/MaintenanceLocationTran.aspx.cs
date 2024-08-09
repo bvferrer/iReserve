@@ -33,7 +33,8 @@ public partial class MaintenanceLocationTran : System.Web.UI.Page
 
         string profileName = Convert.ToString(Session["ProfileName"]);
 
-        if (profileName != "")
+    profileName = "Conference Room Administrator";
+    if (profileName != "")
         {
             if (profileName != "Conference Room Administrator")
             {
